@@ -1,3 +1,7 @@
+using Carter;
+using Microsoft.EntityFrameworkCore;
+using RealEstateManagement.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,6 +14,9 @@ var config = builder.Configuration;
 builder.Services.AddCors(options =>
     options.AddPolicy("RealStateManagement", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(config.GetConnectionString("AppDb")));
+
+builder.Services.AddCarter();
 
 var app = builder.Build();
 
@@ -22,6 +29,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseCors("RealStateManagement");
+app.MapCarter();
 
 
 var summaries = new[]
