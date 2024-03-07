@@ -18,14 +18,15 @@ namespace RealEstateManagement.Endpoints
 
             app.MapGet("/getProducts", (AppDbContext context) =>
             {
-                var productos = context.Productos.Select(p => p.ConvertToProductDTO());
+                var productos = context.Productos.Include(p => p.Barrio).Select(p => p.ConvertToProductDTO());
 
                 return Results.Ok(productos);
             }).WithTags("Producto"); ;
 
-            app.MapGet("/{idProducto}", (int idProducto) =>
+            app.MapGet("/{codigo}", (Guid codigo, AppDbContext context) =>
             {
-                return Results.Ok();
+                var producto = context.Productos.Where(p => p.Codigo == codigo).Include(p => p.Barrio).Select(p => p.ConvertToProductDTO());
+                return Results.Ok(producto);
             }).WithTags("Producto");
 
             app.MapPost("/", (AppDbContext context, PostProductoDTO productoDto) =>
@@ -57,13 +58,32 @@ namespace RealEstateManagement.Endpoints
                 return Results.Created();
             }).WithTags("Producto"); 
 
-            app.MapPut("/{idProducto}", (int idProducto) =>
+            app.MapPut("/{codigo}", (AppDbContext context, Guid codigo, PutProductoDTO productoDto) =>
             {
+                var producto = context.Productos.FirstOrDefault(p => p.Codigo == codigo);
+
+                if (producto is null)
+                    return Results.BadRequest();
+
+                producto.Nombre = productoDto.Nombre;
+                producto.Precio = productoDto.Precio;
+                producto.Descripcion = productoDto.Descripcion;
+                producto.UrlImagen = productoDto.UrlImagen;
+                producto.EstadoProducto = productoDto.EstadoProducto;
+                context.SaveChanges();
+
                 return Results.Ok();
             }).WithTags("Producto");
 
-            app.MapDelete("/{idProducto}", (int idProducto) =>
+            app.MapDelete("/{codigo}", (AppDbContext context,Guid codigo) =>
             {
+                var producto = context.Productos.FirstOrDefault(p => p.Codigo == codigo);
+                if (producto is null)
+                    return Results.BadRequest();
+
+                context.Productos.Remove(producto);
+
+                context.SaveChanges();
                 return Results.NoContent();
             }).WithTags("Producto");
         }
