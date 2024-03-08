@@ -76,7 +76,7 @@ namespace RealEstateManagement.Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("Codigo")
+                    b.Property<Guid>("CodigoProducto")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("EstadoReserva")
@@ -87,8 +87,6 @@ namespace RealEstateManagement.Database.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdReserva");
-
-                    b.HasIndex("Codigo");
 
                     b.ToTable("Reserva");
                 });
@@ -102,17 +100,6 @@ namespace RealEstateManagement.Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Barrio");
-                });
-
-            modelBuilder.Entity("RealEstateManagement.Domain.Reserva", b =>
-                {
-                    b.HasOne("RealEstateManagement.Domain.Producto", "Producto")
-                        .WithMany()
-                        .HasForeignKey("Codigo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Producto");
                 });
 
             modelBuilder.Entity("RealEstateManagement.Domain.Barrio", b =>

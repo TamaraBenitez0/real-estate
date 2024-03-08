@@ -45,6 +45,8 @@ namespace RealEstateManagement.Endpoints
                     Nombre = productoDto.Nombre,
                     Barrio = barrio,
                     Precio = productoDto.Precio,
+                    Descripcion = productoDto.Descripcion,
+                    UrlImagen = productoDto.UrlImagen,
                     EstadoProducto = Domain.EstadoProducto.Disponible
 
                 };

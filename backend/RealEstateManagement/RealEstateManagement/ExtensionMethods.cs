@@ -8,7 +8,7 @@ namespace RealEstateManagement
     public static class ExtensionMethods
     {
         public static GetProductosDTO ConvertToProductDTO(this Producto p) =>
-             new(p.Codigo, p.Nombre, p.Precio, p.Descripcion, p.UrlImagen, p.EstadoProducto);
+             new(p.Codigo, p.Nombre, p.Barrio.IdBarrio,p.Precio, p.Descripcion, p.UrlImagen, p.EstadoProducto);
 
 
         public static GetBarrioDTO ConvertToBarrioDto(this Barrio b) =>

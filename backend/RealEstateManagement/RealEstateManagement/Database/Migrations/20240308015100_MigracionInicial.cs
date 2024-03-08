@@ -25,6 +25,21 @@ namespace RealEstateManagement.Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Reserva",
+                columns: table => new
+                {
+                    IdReserva = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    NombreCliente = table.Column<string>(type: "TEXT", nullable: false),
+                    EstadoReserva = table.Column<int>(type: "INTEGER", nullable: false),
+                    CodigoProducto = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reserva", x => x.IdReserva);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Producto",
                 columns: table => new
                 {
@@ -47,27 +62,6 @@ namespace RealEstateManagement.Database.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Reserva",
-                columns: table => new
-                {
-                    IdReserva = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    NombreCliente = table.Column<string>(type: "TEXT", nullable: false),
-                    EstadoReserva = table.Column<int>(type: "INTEGER", nullable: false),
-                    Codigo = table.Column<Guid>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reserva", x => x.IdReserva);
-                    table.ForeignKey(
-                        name: "FK_Reserva_Producto_Codigo",
-                        column: x => x.Codigo,
-                        principalTable: "Producto",
-                        principalColumn: "Codigo",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Barrio_Nombre",
                 table: "Barrio",
@@ -78,21 +72,16 @@ namespace RealEstateManagement.Database.Migrations
                 name: "IX_Producto_IdBarrio",
                 table: "Producto",
                 column: "IdBarrio");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Reserva_Codigo",
-                table: "Reserva",
-                column: "Codigo");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Reserva");
+                name: "Producto");
 
             migrationBuilder.DropTable(
-                name: "Producto");
+                name: "Reserva");
 
             migrationBuilder.DropTable(
                 name: "Barrio");

@@ -13,18 +13,6 @@ namespace RealEstateManagement.Endpoints
         {
             var app = routes.MapGroup("/api/Barrio");
 
-            app.MapGet("/prueba", (AppDbContext context) =>
-            {
-                var barrio = context.Barrios.FirstOrDefault(b => b.IdBarrio == 1);
-
-                if (barrio == null)
-                {
-
-                    return Results.NotFound("El barrio especificado no fue encontrado.");
-                }
-                var cant = barrio.Productos.Count();
-                return Results.Ok(cant);
-            } ).WithTags("Barrio");
 
             app.MapGet("/", (AppDbContext context) =>
             {
@@ -33,9 +21,16 @@ namespace RealEstateManagement.Endpoints
                 return Results.Ok(barrios);
             }).WithTags("Barrio"); ;
 
-            app.MapGet("/{idBarrio}", (int idBarrio) =>
+            app.MapGet("/{idBarrio}", (int idBarrio, AppDbContext context) =>
             {
-                return Results.Ok();
+                var barrio = context.Barrios.FirstOrDefault(b => b.IdBarrio == idBarrio);
+
+                if (barrio == null)
+                {
+
+                    return Results.NotFound("El barrio especificado no fue encontrado.");
+                }
+                return Results.Ok(barrio.ConvertToBarrioDto());
             }).WithTags("Barrio");
 
             app.MapPost("/", (AppDbContext context, PostBarrioDTO barrioDto) =>
@@ -51,19 +46,8 @@ namespace RealEstateManagement.Endpoints
                 return Results.Created();
             }).WithTags("Barrio");
 
-            app.MapPut("/{idBarrio}", (int idBarrio, AppDbContext context) =>
-            {
-               
-                var barrio = context.Barrios.FirstOrDefault(b => b.IdBarrio == idBarrio);
 
-               
-                return Results.Ok();
-            }).WithTags("Barrio");
-
-            app.MapDelete("/{idBarrio}", (int idBarrio) =>
-            {
-                return Results.NoContent();
-            }).WithTags("Barrio");
+  
         }
     }
 }
