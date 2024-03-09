@@ -14,31 +14,36 @@ namespace RealEstateManagement.Endpoints
 
             app.MapGet("/getReservas", (AppDbContext context) =>
             {
-                //var reservas = context.Reservas.Include(r => r.Producto).Select(p => p.ConvertToReservaDTO()); 
+                var reservas = context.Reservas.ToList(); 
 
-                return Results.Ok();
+                return Results.Ok(reservas);
 
-            }).WithTags("Reservas");
+            }).WithTags("Reserva");
 
-            app.MapPost("/{codigo}/createReserva", (AppDbContext context,PostReserva reservaDTO, Guid codigo) => {
+            app.MapPost("/createReserva", (AppDbContext context,PostReserva reservaDTO) => {
 
-                var producto = context.Productos.FirstOrDefault(p => p.Codigo == codigo);
-
-                if (producto != null)
+                if(reservaDTO.idCliente >= 3)
                 {
-                    return Results.NotFound("El producto especificado no fue encontrado.");
+                    return Results.BadRequest("Maximo de reservas permitidas alcanzado");
                 }
 
-                //Reserva reserva = new Reserva
-                //{
-                //    NombreCliente = reservaDTO.NombreCliente,
-                //    EstadoReserva = Domain.EstadoReserva.Ingresada,
-                //    Producto = producto
-                //};
+               
 
-                //producto.Reserva = reserva;
-                //context.Reservas.Add(reserva);
-                //context.SaveChanges();
+                Reserva reserva = new Reserva
+                {
+                    NombreCliente = reservaDTO.NombreCliente,
+                    EstadoReserva = Domain.EstadoReserva.Ingresada,
+                    CodigoProducto = reservaDTO.CodigoProducto
+
+                };
+
+                var producto1 = context.Productos.FirstOrDefault(p => p.Codigo == reservaDTO.CodigoProducto);
+                producto1.EstadoProducto = Domain.EstadoProducto.Reservado;
+
+
+                context.Reservas.Add(reserva);
+                context.SaveChanges();
+                
 
                 return Results.Created();
             }).WithTags("Reserva");

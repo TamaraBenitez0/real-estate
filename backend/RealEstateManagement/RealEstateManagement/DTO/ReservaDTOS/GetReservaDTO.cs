@@ -2,6 +2,6 @@
 
 namespace RealEstateManagement.DTO.ReservaDTOS
 {
-    public record GetReservaDTO(int IdReserva,string NombreCliente,EstadoReserva EstadoReserva);
+    public record GetReservaDTO(int IdReserva,string NombreCliente,EstadoReserva EstadoReserva,Guid CodigoProducto);
     
 }

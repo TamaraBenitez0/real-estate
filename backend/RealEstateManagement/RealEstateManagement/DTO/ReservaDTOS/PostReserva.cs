@@ -2,6 +2,6 @@
 
 namespace RealEstateManagement.DTO.ReservaDTOS
 {
-    public record PostReserva(string NombreCliente, EstadoReserva EstadoReserva);
+    public record PostReserva(string NombreCliente, Guid CodigoProducto,int idCliente,int idBarrio);
     
 }
