@@ -80,7 +80,7 @@ namespace RealEstateManagement.Endpoints
             app.MapDelete("/{codigo}", (AppDbContext context,Guid codigo) =>
             {
                 var producto = context.Productos.FirstOrDefault(p => p.Codigo == codigo);
-                if (producto is null)
+                if (producto is null || producto.EstadoProducto != EstadoProducto.Disponible)
                     return Results.BadRequest();
 
                 context.Productos.Remove(producto);
