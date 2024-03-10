@@ -16,6 +16,6 @@ namespace RealEstateManagement.Domain
         public required string Nombre { get; set; }
 
 
-        public List<Producto>? Productos { get; set; }
+        public List<Producto> Productos { get; set; } = [];
     }
 }

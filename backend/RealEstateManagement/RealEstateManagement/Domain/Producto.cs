@@ -28,6 +28,7 @@ namespace RealEstateManagement.Domain
 
         public EstadoProducto EstadoProducto { get; set; }
 
+        
 
 
     }
