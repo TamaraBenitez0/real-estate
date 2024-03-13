@@ -26,14 +26,14 @@ namespace RealEstateManagement.Endpoints
                 {
                     return Results.BadRequest("Maximo de reservas permitidas alcanzado");
                 }
-                var producto1 = context.Productos.FirstOrDefault(p => p.Codigo == reservaDTO.CodigoProducto);
+                var producto1 = context.Productos.Include(p => p.Barrio).FirstOrDefault(p => p.Codigo == reservaDTO.CodigoProducto);
                 var barrio1 = context.Barrios.FirstOrDefault(b => b.IdBarrio == reservaDTO.idBarrio);
                 if (producto1 == null || barrio1 == null)
                 {
                     return Results.BadRequest();
                 }
                 var esPrecioMenor = producto1.Precio < 100000;
-                var perteneceABarrio = producto1.Barrio == barrio1;
+                var perteneceABarrio = producto1.Barrio.IdBarrio == barrio1.IdBarrio;
                
                 var cantidadDeProductos = context.Productos
 .Count(p => p.Barrio.IdBarrio == reservaDTO.idBarrio && p.EstadoProducto == EstadoProducto.Disponible);
