@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RealEstateManagement.Database;
 using RealEstateManagement.Domain;
 using RealEstateManagement.DTO.ReservaDTOS;
+using RealEstateManagement.Service;
 
 namespace RealEstateManagement.Endpoints
 {
@@ -12,12 +13,19 @@ namespace RealEstateManagement.Endpoints
         {
             var app = routes.MapGroup("/api/Reserva");
 
-            app.MapGet("/getReservas", (AppDbContext context) =>
+            app.MapGet("/getReservas", (IReservaService reservaService) =>
             {
-                var reservas = context.Reservas.ToList(); 
+                var reservas = reservaService.GetReservas(); 
 
                 return Results.Ok(reservas);
 
+            }).WithTags("Reserva");
+
+            app.MapGet("/{idReserva}", (int idReserva, IReservaService reservaService) =>
+            {
+                var reserva = reservaService.GetReserva(idReserva);
+
+                return Results.Ok(reserva);
             }).WithTags("Reserva");
 
             app.MapPost("/createReserva", (AppDbContext context,PostReserva reservaDTO) => {
@@ -75,65 +83,28 @@ namespace RealEstateManagement.Endpoints
                 return Results.Created();
             }).WithTags("Reserva");
 
-            app.MapPut("/{idReserva}/approve", (AppDbContext context, int idReserva) =>
+            app.MapPut("/{idReserva}/approve", (IReservaService reservaService, int idReserva) =>
             {
-                var reserva = context.Reservas.FirstOrDefault(r => r.IdReserva == idReserva);
-                if(reserva == null || reserva.EstadoReserva != EstadoReserva.Ingresada)
-                {
-                    return Results.BadRequest();
-                }
-                var producto = context.Productos.FirstOrDefault(p => p.Codigo == reserva.CodigoProducto);
-                if(producto == null)
-                {
-                    return Results.BadRequest();
-                }
-                producto.EstadoProducto = Domain.EstadoProducto.Vendido;
-                reserva.EstadoReserva = Domain.EstadoReserva.Aprobada;
-                context.SaveChanges();
+
+                reservaService.UpdateApprove(idReserva);
 
                 return Results.Ok();
 
 
             }).WithTags("Reserva");
 
-            app.MapPut("/{idReserva}/cancel", (AppDbContext context, int idReserva) =>
+            app.MapPut("/{idReserva}/cancel", (IReservaService reservaService, int idReserva) =>
             {
-                var reserva = context.Reservas.FirstOrDefault(r => r.IdReserva == idReserva);
-                if (reserva == null || reserva.EstadoReserva != EstadoReserva.Ingresada)
-                {
-                    return Results.BadRequest();
-                }
-                var producto = context.Productos.FirstOrDefault(p => p.Codigo == reserva.CodigoProducto);
-                if (producto == null)
-                {
-                    return Results.BadRequest();
-                }
-
-                producto.EstadoProducto = Domain.EstadoProducto.Disponible;
-                reserva.EstadoReserva = Domain.EstadoReserva.Cancelada;
-                context.SaveChanges();
+                reservaService.UpdateCancel(idReserva);
 
                 return Results.Ok();
 
             }).WithTags("Reserva");
 
-            app.MapPut("/{idReserva}/decline", (AppDbContext context, int idReserva) =>
+            app.MapPut("/{idReserva}/decline", (IReservaService reservaService, int idReserva) =>
             {
-                var reserva = context.Reservas.FirstOrDefault(r => r.IdReserva == idReserva);
-                if (reserva == null || reserva.EstadoReserva != EstadoReserva.Ingresada)
-                {
-                    return Results.BadRequest();
-                }
-                var producto = context.Productos.FirstOrDefault(p => p.Codigo == reserva.CodigoProducto);
-                if (producto == null)
-                {
-                    return Results.BadRequest();
-                }
 
-                producto.EstadoProducto = Domain.EstadoProducto.Disponible;
-                reserva.EstadoReserva = Domain.EstadoReserva.Rechazada;
-                context.SaveChanges();
-
+                reservaService.UpdateDecline(idReserva);
                 return Results.Ok();
 
             }).WithTags("Reserva");

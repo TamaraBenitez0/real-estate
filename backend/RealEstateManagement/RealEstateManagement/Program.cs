@@ -24,6 +24,8 @@ builder.Services.AddTransient<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddTransient<IBarrioRepository, BarrioRepository>();
 builder.Services.AddScoped<IBarrioService, BarrioService>();
+builder.Services.AddTransient<IReservaRepository, ReservaRepository>();
+builder.Services.AddScoped<IReservaService, ReservaService>();
 
 builder.Services.AddCarter();
 
