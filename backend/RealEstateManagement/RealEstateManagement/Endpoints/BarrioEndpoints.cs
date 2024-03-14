@@ -1,9 +1,11 @@
 ﻿using Carter;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealEstateManagement.Database;
 using RealEstateManagement.Domain;
 using RealEstateManagement.DTO;
 using RealEstateManagement.DTO.BarrioDTOS;
+using RealEstateManagement.Service;
 
 namespace RealEstateManagement.Endpoints
 {
@@ -14,35 +16,23 @@ namespace RealEstateManagement.Endpoints
             var app = routes.MapGroup("/api/Barrio");
 
 
-            app.MapGet("/", (AppDbContext context) =>
+            app.MapGet("/", (IBarrioService barrioService) =>
             {
-                var barrios = context.Barrios.Select(b => b.ConvertToBarrioDto());
+                var barrios = barrioService.GetBarrios();
 
                 return Results.Ok(barrios);
             }).WithTags("Barrio"); ;
 
-            app.MapGet("/{idBarrio}", (int idBarrio, AppDbContext context) =>
+            app.MapGet("/{idBarrio}", (int idBarrio, IBarrioService barrioService) =>
             {
-                var barrio = context.Barrios.FirstOrDefault(b => b.IdBarrio == idBarrio);
+                var barrio = barrioService.GetBarrio(idBarrio);
 
-                if (barrio == null)
-                {
-
-                    return Results.NotFound("El barrio especificado no fue encontrado.");
-                }
-                return Results.Ok(barrio.ConvertToBarrioDto());
+                return Results.Ok(barrio);
             }).WithTags("Barrio");
 
-            app.MapPost("/", (AppDbContext context, PostBarrioDTO barrioDto) =>
+            app.MapPost("/", (IBarrioService barrioService, [FromBody] BarrioRequestDTO barrioDto) =>
             {
-                Barrio barrioS = new Barrio
-                {
-                    Nombre = barrioDto.Nombre
-
-                };
-
-                context.Barrios.Add(barrioS);
-                context.SaveChanges();
+                barrioService.CreateBarrio(barrioDto);
                 return Results.Created();
             }).WithTags("Barrio");
 

@@ -1,8 +1,5 @@
 ﻿using Carter;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RealEstateManagement.Database;
-using RealEstateManagement.Domain;
 using RealEstateManagement.DTO.ProductoDTOS;
 using RealEstateManagement.Service;
 
