@@ -64,13 +64,13 @@ namespace RealEstateManagement.Repository
 
         public int UpdateProducto(Guid codigoProducto,ProductoDTO productoDto)
         {
-            
+
             var rowsAffected = context.Productos.Where(x => x.Codigo == codigoProducto).ExecuteUpdate(update =>
                 update.SetProperty(entity => entity.Nombre, productoDto.Nombre)
                 .SetProperty(entity => entity.Precio, productoDto.Precio)
                 .SetProperty(entity => entity.Descripcion, productoDto.Descripcion)
-                .SetProperty(entity => entity.UrlImagen, productoDto.UrlImagen)
-                .SetProperty(entity => entity.EstadoProducto, productoDto.EstadoProducto));
+                .SetProperty(entity => entity.UrlImagen, productoDto.UrlImagen));
+               
 
             return rowsAffected;
         }

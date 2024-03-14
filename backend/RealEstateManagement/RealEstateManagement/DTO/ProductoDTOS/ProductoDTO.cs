@@ -46,6 +46,6 @@ namespace RealEstateManagement.DTO.ProductoDTOS
 
         public string? UrlImagen { get; set; }
 
-        public EstadoProducto EstadoProducto { get; set; }
+       
     }
 }
