@@ -1,4 +1,5 @@
 ﻿using Carter;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealEstateManagement.Database;
 using RealEstateManagement.Domain;
@@ -28,57 +29,10 @@ namespace RealEstateManagement.Endpoints
                 return Results.Ok(reserva);
             }).WithTags("Reserva");
 
-            app.MapPost("/createReserva", (AppDbContext context,PostReserva reservaDTO) => {
-
-                if(reservaDTO.idCliente >= 3)
-                {
-                    return Results.BadRequest("Maximo de reservas permitidas alcanzado");
-                }
-                var producto1 = context.Productos.Include(p => p.Barrio).FirstOrDefault(p => p.Codigo == reservaDTO.CodigoProducto);
-                var barrio1 = context.Barrios.FirstOrDefault(b => b.IdBarrio == reservaDTO.idBarrio);
-                if (producto1 == null || barrio1 == null)
-                {
-                    return Results.BadRequest();
-                }
-                var esPrecioMenor = producto1.Precio < 100000;
-                var perteneceABarrio = producto1.Barrio.IdBarrio == barrio1.IdBarrio;
-               
-                var cantidadDeProductos = context.Productos
-.Count(p => p.Barrio.IdBarrio == reservaDTO.idBarrio && p.EstadoProducto == EstadoProducto.Disponible);
-                var perteneceABarrioYPrecioMenor = perteneceABarrio && esPrecioMenor;
-
-                if(perteneceABarrioYPrecioMenor || cantidadDeProductos == 1)
-                {
-                    Reserva reserva1 = new Reserva {
-                    NombreCliente = reservaDTO.NombreCliente,
-                    EstadoReserva = Domain.EstadoReserva.Aprobada,
-                    CodigoProducto = reservaDTO.CodigoProducto
-                    };
-
-                    producto1.EstadoProducto = Domain.EstadoProducto.Vendido;
-                    context.Reservas.Add(reserva1);
-                    context.SaveChanges();
+            app.MapPost("/createReserva", (IReservaService reservaService, [FromBody] ReservaRequestDTO reservaDTO) => {
 
 
-                    return Results.Created();
-                }
-               
-
-                Reserva reserva = new Reserva
-                {
-                    NombreCliente = reservaDTO.NombreCliente,
-                    EstadoReserva = Domain.EstadoReserva.Ingresada,
-                    CodigoProducto = reservaDTO.CodigoProducto
-
-                };
-
-               
-                producto1.EstadoProducto = Domain.EstadoProducto.Reservado;
-
-
-                context.Reservas.Add(reserva);
-                context.SaveChanges();
-                
+                reservaService.CreateReserva(reservaDTO);
 
                 return Results.Created();
             }).WithTags("Reserva");
