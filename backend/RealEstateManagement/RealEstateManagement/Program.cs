@@ -1,8 +1,12 @@
 using Carter;
+using Mapster;
 using Microsoft.EntityFrameworkCore;
 using RealEstateManagement.Database;
+using RealEstateManagement.Repository;
+using RealEstateManagement.Service;
 
 var builder = WebApplication.CreateBuilder(args);
+TypeAdapterConfig.GlobalSettings.Scan(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -15,6 +19,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("RealStateManagement", policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()));
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(config.GetConnectionString("AppDb")));
+
+builder.Services.AddTransient<IProductoRepository, ProductoRepository>();
+builder.Services.AddScoped<IProductoService, ProductoService>();
+builder.Services.AddTransient<IBarrioRepository, BarrioRepository>();
+builder.Services.AddScoped<IBarrioService, BarrioService>();
+builder.Services.AddTransient<IReservaRepository, ReservaRepository>();
+builder.Services.AddScoped<IReservaService, ReservaService>();
 
 builder.Services.AddCarter();
 
@@ -32,29 +43,8 @@ app.UseCors("RealStateManagement");
 app.MapCarter();
 
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
 
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+

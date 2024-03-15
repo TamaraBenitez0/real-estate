@@ -1,91 +1,51 @@
 ﻿using Carter;
-using Microsoft.EntityFrameworkCore;
-using RealEstateManagement.Database;
-using RealEstateManagement.Domain;
+using Microsoft.AspNetCore.Mvc;
 using RealEstateManagement.DTO.ProductoDTOS;
+using RealEstateManagement.Service;
 
 namespace RealEstateManagement.Endpoints
 {
     public class ProductoEndpoints : ICarterModule
     {
 
-       
+
         public void AddRoutes(IEndpointRouteBuilder routes)
         {
             var app = routes.MapGroup("/api/Producto");
 
-        
 
-            app.MapGet("/getProducts", (AppDbContext context) =>
+
+            app.MapGet("/getProducts", (IProductoService productoService) =>
             {
-                var productos = context.Productos.Include(p => p.Barrio).Select(p => p.ConvertToProductDTO());
+                var productos = productoService.GetProductos();
 
                 return Results.Ok(productos);
+
             }).WithTags("Producto"); ;
 
-            app.MapGet("/{codigo}", (Guid codigo, AppDbContext context) =>
+            app.MapGet("/{codigo}", (Guid codigo, IProductoService productoService) =>
             {
-                var producto = context.Productos.Where(p => p.Codigo == codigo).Include(p => p.Barrio).Select(p => p.ConvertToProductDTO());
+                var producto = productoService.GetProducto(codigo);
                 return Results.Ok(producto);
+
             }).WithTags("Producto");
 
-            app.MapPost("/", (AppDbContext context, PostProductoDTO productoDto) =>
+            app.MapPost("/", (IProductoService productoService, [FromBody] ProductoRequestDTO productoDto) =>
             {
-                var barrio = context.Barrios.FirstOrDefault(b => b.IdBarrio == productoDto.IdBarrio);
-
-                if (barrio == null)
-                {
-                    
-                    return Results.NotFound("El barrio especificado no fue encontrado.");
-                }
-
-                Producto producto = new Producto
-                {
-                    
-                    Nombre = productoDto.Nombre,
-                    Barrio = barrio,
-                    Precio = productoDto.Precio,
-                    Descripcion = productoDto.Descripcion,
-                    UrlImagen = productoDto.UrlImagen,
-                    EstadoProducto = Domain.EstadoProducto.Disponible
-
-                };
-
-                barrio.Productos.Add(producto);
-
-                context.Productos.Add(producto);
-
-                context.SaveChanges();
+                productoService.CreateProducto(productoDto);
 
                 return Results.Created();
             }).WithTags("Producto"); 
 
-            app.MapPut("/{codigo}", (AppDbContext context, Guid codigo, PutProductoDTO productoDto) =>
+            app.MapPut("/{codigo}", (IProductoService productoService, Guid codigo, [FromBody] ProductoRequestDTO productoDto) =>
             {
-                var producto = context.Productos.FirstOrDefault(p => p.Codigo == codigo);
-
-                if (producto is null)
-                    return Results.BadRequest();
-
-                producto.Nombre = productoDto.Nombre;
-                producto.Precio = productoDto.Precio;
-                producto.Descripcion = productoDto.Descripcion;
-                producto.UrlImagen = productoDto.UrlImagen;
-                producto.EstadoProducto = productoDto.EstadoProducto;
-                context.SaveChanges();
-
+                productoService.UpdateProducto(codigo, productoDto);
                 return Results.Ok();
             }).WithTags("Producto");
 
-            app.MapDelete("/{codigo}", (AppDbContext context,Guid codigo) =>
+            app.MapDelete("/{codigo}", (IProductoService productoService, Guid codigo) =>
             {
-                var producto = context.Productos.FirstOrDefault(p => p.Codigo == codigo);
-                if (producto is null || producto.EstadoProducto != EstadoProducto.Disponible)
-                    return Results.BadRequest();
-
-                context.Productos.Remove(producto);
-
-                context.SaveChanges();
+                productoService.DeleteProducto(codigo);
                 return Results.NoContent();
             }).WithTags("Producto");
         }
