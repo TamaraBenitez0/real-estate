@@ -12,6 +12,8 @@ namespace RealEstateManagement.DTO.ReservaDTOS
 
 
         public required Guid CodigoProducto { get; set; }
+
+        public required string Username { get; set; }
     }
 
     public class ReservaResponseDTO
@@ -26,6 +28,8 @@ namespace RealEstateManagement.DTO.ReservaDTOS
 
         public required Guid CodigoProducto { get; set; }
 
+        public required string Username { get; set; }
+
     }
 
     public class ReservaRequestDTO
@@ -34,10 +38,9 @@ namespace RealEstateManagement.DTO.ReservaDTOS
 
         public required Guid CodigoProducto { get; set; }
 
-        public required int IdUsuario { get; set;}
-
         public required int IdBarrio { get; set; }
 
+        public required string Username { get; set; }
 
     }
 }

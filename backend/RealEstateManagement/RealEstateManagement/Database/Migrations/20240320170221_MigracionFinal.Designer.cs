@@ -11,8 +11,8 @@ using RealEstateManagement.Database;
 namespace RealEstateManagement.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240308015100_MigracionInicial")]
-    partial class MigracionInicial
+    [Migration("20240320170221_MigracionFinal")]
+    partial class MigracionFinal
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,13 +85,78 @@ namespace RealEstateManagement.Database.Migrations
                     b.Property<int>("EstadoReserva")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("IdUsuario")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("NombreCliente")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("IdReserva");
 
+                    b.HasIndex("IdUsuario");
+
                     b.ToTable("Reserva");
+                });
+
+            modelBuilder.Entity("RealEstateManagement.Domain.Rol", b =>
+                {
+                    b.Property<int>("IdRol")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IdRol");
+
+                    b.ToTable("Rol");
+                });
+
+            modelBuilder.Entity("RealEstateManagement.Domain.Usuario", b =>
+                {
+                    b.Property<int>("IdUsuario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IdUsuario");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("Usuario");
+                });
+
+            modelBuilder.Entity("RolUsuario", b =>
+                {
+                    b.Property<int>("RolesIdRol")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UsuariosIdUsuario")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RolesIdRol", "UsuariosIdUsuario");
+
+                    b.HasIndex("UsuariosIdUsuario");
+
+                    b.ToTable("RolUsuario");
                 });
 
             modelBuilder.Entity("RealEstateManagement.Domain.Producto", b =>
@@ -105,9 +170,40 @@ namespace RealEstateManagement.Database.Migrations
                     b.Navigation("Barrio");
                 });
 
+            modelBuilder.Entity("RealEstateManagement.Domain.Reserva", b =>
+                {
+                    b.HasOne("RealEstateManagement.Domain.Usuario", "Usuario")
+                        .WithMany("Reservas")
+                        .HasForeignKey("IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("RolUsuario", b =>
+                {
+                    b.HasOne("RealEstateManagement.Domain.Rol", null)
+                        .WithMany()
+                        .HasForeignKey("RolesIdRol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RealEstateManagement.Domain.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("UsuariosIdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("RealEstateManagement.Domain.Barrio", b =>
                 {
                     b.Navigation("Productos");
+                });
+
+            modelBuilder.Entity("RealEstateManagement.Domain.Usuario", b =>
+                {
+                    b.Navigation("Reservas");
                 });
 #pragma warning restore 612, 618
         }

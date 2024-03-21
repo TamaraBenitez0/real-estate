@@ -22,7 +22,7 @@ public class ReservaService(IReservaRepository reservaRepository) : IReservaServ
 {
     public void CreateReserva(ReservaRequestDTO reservaDTO)
     {
-        reservaRepository.AddReserva(reservaDTO.Adapt<ReservaDTO>(),reservaDTO.IdUsuario,reservaDTO.IdBarrio);
+        reservaRepository.AddReserva(reservaDTO.Adapt<ReservaDTO>(),reservaDTO.IdBarrio);
     }
 
     public ReservaResponseDTO GetReserva(int idReserva)

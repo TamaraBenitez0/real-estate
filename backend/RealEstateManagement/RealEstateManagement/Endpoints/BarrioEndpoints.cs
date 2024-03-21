@@ -1,4 +1,5 @@
 ﻿using Carter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealEstateManagement.Database;
@@ -21,23 +22,23 @@ namespace RealEstateManagement.Endpoints
                 var barrios = barrioService.GetBarrios();
 
                 return Results.Ok(barrios);
-            }).WithTags("Barrio"); ;
+            }).WithTags("Barrio").RequireAuthorization(new AuthorizeAttribute { Roles = "comercial, administrador" });
 
             app.MapGet("/{idBarrio}", (int idBarrio, IBarrioService barrioService) =>
             {
                 var barrio = barrioService.GetBarrio(idBarrio);
 
                 return Results.Ok(barrio);
-            }).WithTags("Barrio");
+            }).WithTags("Barrio").RequireAuthorization(new AuthorizeAttribute { Roles = "comercial, administrador" });
 
             app.MapPost("/", (IBarrioService barrioService, [FromBody] BarrioRequestDTO barrioDto) =>
             {
                 barrioService.CreateBarrio(barrioDto);
                 return Results.Created();
-            }).WithTags("Barrio");
+            }).WithTags("Barrio").RequireAuthorization(new AuthorizeAttribute { Roles = "comercial, administrador" });
 
 
-  
+
         }
     }
 }

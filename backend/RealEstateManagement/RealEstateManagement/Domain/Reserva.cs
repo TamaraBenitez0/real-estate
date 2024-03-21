@@ -14,6 +14,9 @@ namespace RealEstateManagement.Domain
         public EstadoReserva EstadoReserva { get; set; }
 
        
-        public required Guid CodigoProducto { get; set; }  
+        public required Guid CodigoProducto { get; set; }
+
+        [ForeignKey("IdUsuario")]
+        public required Usuario Usuario { get; set; }    
     }
 }

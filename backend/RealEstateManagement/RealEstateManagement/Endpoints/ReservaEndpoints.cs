@@ -1,4 +1,5 @@
 ﻿using Carter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RealEstateManagement.Database;
@@ -20,14 +21,19 @@ namespace RealEstateManagement.Endpoints
 
                 return Results.Ok(reservas);
 
-            }).WithTags("Reserva");
+            }).WithTags("Reserva").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador, comercial" });
+
+
 
             app.MapGet("/{idReserva}", (int idReserva, IReservaService reservaService) =>
             {
                 var reserva = reservaService.GetReserva(idReserva);
 
                 return Results.Ok(reserva);
-            }).WithTags("Reserva");
+
+            }).WithTags("Reserva").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador, comercial" });
+
+
 
             app.MapPost("/createReserva", (IReservaService reservaService, [FromBody] ReservaRequestDTO reservaDTO) => {
 
@@ -35,7 +41,9 @@ namespace RealEstateManagement.Endpoints
                 reservaService.CreateReserva(reservaDTO);
 
                 return Results.Created();
-            }).WithTags("Reserva");
+            }).WithTags("Reserva").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador" });
+
+
 
             app.MapPut("/{idReserva}/approve", (IReservaService reservaService, int idReserva) =>
             {
@@ -45,7 +53,9 @@ namespace RealEstateManagement.Endpoints
                 return Results.Ok();
 
 
-            }).WithTags("Reserva");
+            }).WithTags("Reserva").RequireAuthorization(new AuthorizeAttribute { Roles = "administrador, comercial" });
+
+
 
             app.MapPut("/{idReserva}/cancel", (IReservaService reservaService, int idReserva) =>
             {
@@ -53,7 +63,9 @@ namespace RealEstateManagement.Endpoints
 
                 return Results.Ok();
 
-            }).WithTags("Reserva");
+            }).WithTags("Reserva").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador" });
+
+
 
             app.MapPut("/{idReserva}/decline", (IReservaService reservaService, int idReserva) =>
             {
@@ -61,7 +73,7 @@ namespace RealEstateManagement.Endpoints
                 reservaService.UpdateDecline(idReserva);
                 return Results.Ok();
 
-            }).WithTags("Reserva");
+            }).WithTags("Reserva").RequireAuthorization(new AuthorizeAttribute { Roles = "administrador, comercial" });
 
         }
 
