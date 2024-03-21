@@ -11,7 +11,7 @@ public interface IReservaRepository
 
     Reserva GetReserva(int id);
 
-    void AddReserva(ReservaDTO reservaDTO,int idUsuario,int idBarrio);
+    void AddReserva(ReservaDTO reservaDTO,int idBarrio);
 
     void UpdateApprove(int idReserva);
 
@@ -24,9 +24,16 @@ public interface IReservaRepository
 
 public class ReservaRepository(AppDbContext context) : IReservaRepository
 {
-    public void AddReserva(ReservaDTO reservaDTO, int idUsuario, int idBarrio)
+    public void AddReserva(ReservaDTO reservaDTO, int idBarrio)
     {
-        if (idUsuario >= 3)
+        var usuario = context.Usuarios.FirstOrDefault(u => u.Username == reservaDTO.Username);
+        if( usuario == null)
+        {
+            throw new Exception("El usuario no existe");
+        }
+        var cantReservasU = context.Reservas.Count(r => r.Usuario.Username == usuario.Username && r.EstadoReserva == EstadoReserva.Ingresada);
+
+        if (cantReservasU >= 3)
         {
             throw new Exception("Maximo de reservas permitidas alcanzado");
         }
@@ -49,7 +56,8 @@ public class ReservaRepository(AppDbContext context) : IReservaRepository
                         {
                             NombreCliente = reservaDTO.NombreCliente,
                             EstadoReserva = Domain.EstadoReserva.Aprobada,
-                            CodigoProducto = reservaDTO.CodigoProducto
+                            CodigoProducto = reservaDTO.CodigoProducto,
+                            Usuario = usuario
                         };
 
                         producto1.EstadoProducto = Domain.EstadoProducto.Vendido;
@@ -64,7 +72,8 @@ public class ReservaRepository(AppDbContext context) : IReservaRepository
                         {
                             NombreCliente = reservaDTO.NombreCliente,
                             EstadoReserva = Domain.EstadoReserva.Ingresada,
-                            CodigoProducto = reservaDTO.CodigoProducto
+                            CodigoProducto = reservaDTO.CodigoProducto,
+                            Usuario = usuario
 
                         };
 
@@ -83,7 +92,7 @@ public class ReservaRepository(AppDbContext context) : IReservaRepository
 
         public Reserva GetReserva(int id)
     {
-        var reserva = context.Reservas.FirstOrDefault(r => r.IdReserva == id);
+        var reserva = context.Reservas.Include(r => r.Usuario).FirstOrDefault(r => r.IdReserva == id);
 
         if(reserva == null)
         {
@@ -95,7 +104,7 @@ public class ReservaRepository(AppDbContext context) : IReservaRepository
 
     public List<Reserva> GetReservas()
     {
-        var reservas = context.Reservas.ToList();
+        var reservas = context.Reservas.Include(r => r.Usuario).ToList();
 
         return reservas;
     }

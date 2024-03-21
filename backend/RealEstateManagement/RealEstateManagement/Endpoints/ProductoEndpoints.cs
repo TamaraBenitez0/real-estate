@@ -1,4 +1,5 @@
 ﻿using Carter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RealEstateManagement.DTO.ProductoDTOS;
 using RealEstateManagement.Service;
@@ -21,33 +22,41 @@ namespace RealEstateManagement.Endpoints
 
                 return Results.Ok(productos);
 
-            }).WithTags("Producto"); ;
+            }).WithTags("Producto").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador" });
+
+
 
             app.MapGet("/{codigo}", (Guid codigo, IProductoService productoService) =>
             {
                 var producto = productoService.GetProducto(codigo);
                 return Results.Ok(producto);
 
-            }).WithTags("Producto");
+            }).WithTags("Producto").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador" });
+
+
 
             app.MapPost("/", (IProductoService productoService, [FromBody] ProductoRequestDTO productoDto) =>
             {
                 productoService.CreateProducto(productoDto);
 
                 return Results.Created();
-            }).WithTags("Producto"); 
+            }).WithTags("Producto").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador" });
+
+
 
             app.MapPut("/{codigo}", (IProductoService productoService, Guid codigo, [FromBody] ProductoRequestDTO productoDto) =>
             {
                 productoService.UpdateProducto(codigo, productoDto);
                 return Results.Ok();
-            }).WithTags("Producto");
+            }).WithTags("Producto").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador" });
+
+
 
             app.MapDelete("/{codigo}", (IProductoService productoService, Guid codigo) =>
             {
                 productoService.DeleteProducto(codigo);
                 return Results.NoContent();
-            }).WithTags("Producto");
+            }).WithTags("Producto").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador" });
         }
     }
 }

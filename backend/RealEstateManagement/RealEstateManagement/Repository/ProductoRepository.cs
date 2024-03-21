@@ -43,6 +43,10 @@ namespace RealEstateManagement.Repository
         public Producto GetProducto(Guid codigo)
         {
             var producto = context.Productos.Include(p => p.Barrio).FirstOrDefault(p => p.Codigo == codigo);
+            if(producto == null)
+            {
+                throw new Exception("No existe el producto especificado");
+            }
             return producto;
         }
 
