@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ProductosModule } from './productos/productos.module';
 import { UserComercialComponent } from './user-comercial/user-comercial.component';
 import { AuthModule } from './auth/auth.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
     BrowserModule,
     AppRoutingModule,
     ProductosModule,
+    HttpClientModule,
     AuthModule
   ],
   providers: [],

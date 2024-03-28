@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserLogin } from './interface/login.interface';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   private fb = inject(FormBuilder)
   private router = inject(Router);
+  private authService = inject(AuthService)
 
   myForm!: FormGroup
 
@@ -30,9 +32,19 @@ export class LoginComponent implements OnInit {
 
     const newUsuario = this.myForm.value as UserLogin
 
+    this.authService.login(newUsuario)
+    .subscribe({
+      next:res => {
+        console.log(res)
+        this.router.navigateByUrl('productos')
+      },
+      error: error => {
+        console.log(error)
+      }
+    })
     
     // result ok:
-    this.router.navigateByUrl('productos')
+    
     // this.router.navigate(['detalle', 1])
 
   }
