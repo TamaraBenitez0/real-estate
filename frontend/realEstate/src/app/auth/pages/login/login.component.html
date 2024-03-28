@@ -1,19 +1,28 @@
+<div class="center">
+  <img src="./assets/icono.png">
+<h2 class="loginTitle">Login</h2>
+
 <form [formGroup]="myForm" (ngSubmit)="login()"> 
 
-    <div>
+  <div class="center">
+  <mat-form-field appearance="outline">
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="username" placeholder="Ingresar nombre de usuario">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" placeholder="Ingresar contraseña" type="password">
+  </mat-form-field>
   
-      <label for="username">Usuario</label>
-      <input type="text" id="username" name="username" formControlName="username">
-  
+    
+    <div class="button-container">
+    <button mat-stroked-button  type="submit">Iniciar sesion</button>
+    <button mat-stroked-button type="button" routerLink="/auth/register" class="button button-go-to-register">Ir a Registro</button>
     </div>
-    <div>
+  </div>
+  </form> 
   
-      <label for="username">Password</label>
-  
-      <input type="password" name="password" formControlName="password">
-    </div>
-  
-    <hr>
-    <button type="submit" class="button-submit">Login</button>
-    <button type="button" routerLink="/productos" class="button-submit">Ir a Productos</button>
- </form> 
+
+</div>
+
+

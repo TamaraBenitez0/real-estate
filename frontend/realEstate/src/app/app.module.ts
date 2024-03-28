@@ -7,13 +7,16 @@ import { ProductosModule } from './productos/productos.module';
 import { UserComercialComponent } from './user-comercial/user-comercial.component';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { UserVendedorModule } from './user-vendedor/user-vendedor.module';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComercialComponent,
+    UserComercialComponent
+   
 
     
   ],
@@ -22,9 +25,12 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     ProductosModule,
     HttpClientModule,
-    AuthModule
+    AuthModule,
+    UserVendedorModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

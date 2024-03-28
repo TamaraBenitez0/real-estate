@@ -16,6 +16,14 @@ const routes: Routes = [
       .then(m => m.ProductosModule)
   
   } , 
+
+  {
+    path:'userVendedor',
+    canActivate:[authGuard],
+    data:{ roles: ['administrador', 'vendedor']},
+    loadChildren:() => import('./user-vendedor/user-vendedor.module')
+    .then(m => m.UserVendedorModule)
+  },
   {
     path:'userComercial',
     canActivate:[authGuard],

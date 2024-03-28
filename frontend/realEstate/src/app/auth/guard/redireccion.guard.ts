@@ -18,7 +18,7 @@ export const redireccionGuard: CanActivateFn = (route, state) => {
     router.navigateByUrl('productos')
     return true;
   } else if(currentRol === 'vendedor') {
-    router.navigateByUrl('productos')
+    router.navigateByUrl('userVendedor')
     return true;
   }
 
