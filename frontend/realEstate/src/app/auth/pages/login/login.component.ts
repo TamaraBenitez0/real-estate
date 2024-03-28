@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     .subscribe({
       next:res => {
         console.log(res)
-        this.router.navigateByUrl('productos')
+        this.router.navigateByUrl('/')
       },
       error: error => {
         console.log(error)
