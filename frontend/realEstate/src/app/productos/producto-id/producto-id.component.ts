@@ -1,5 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Producto } from '../interface/producto.interface';
+import { ProductosService } from '../productos.service';
 
 @Component({
   selector: 'app-producto-id',
@@ -9,16 +11,55 @@ import { ActivatedRoute } from '@angular/router';
 export class ProductoIdComponent implements OnInit {
 
   private activatedRoute = inject(ActivatedRoute)
+  private router = inject(Router)
 
-  productoId: number = 0;
+  productoCodigo: string ='';
+  producto!:Producto;
+  private productService = inject(ProductosService)
 
+  mapEstadoProducto : any = {
+    0:'Disponible',
+    1:'Reservado',
+    2:'Vendido'
+  }
+
+  tieneStock():string{
+    return 'red';
+  }
+
+  sePuedeEliminar():boolean {
+    return this.producto.estadoProducto == 0;
+  }
+
+  eliminarProducto(codigo:string):void {
+    this.productService.deleteProduct(codigo).subscribe({
+      next:res => {
+        console.log(res)
+      },
+      error: err => {
+        console.log(err)
+      }
+    })
+    this.router.navigateByUrl('/productos')
+
+  }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap
       .subscribe(params => {
-        this.productoId = parseInt(params.get('id')!)
-        console.log('Id de ruta: ', this.productoId);
+        this.productoCodigo = params.get('id')!
+        
 
+      })
+
+      this.productService.getProducto(this.productoCodigo).subscribe({
+        next:res =>{
+          this.producto = res
+         
+        },
+        error: err => {
+          console.log(err)
+        }
       })
 
 

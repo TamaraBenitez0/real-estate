@@ -1,0 +1,14 @@
+.styleButton {
+    .mdc-button { 
+        background-color: red;
+    }
+}
+
+.mat-mdc-outlined-button:not(:disabled) {
+    border-color: yellow;
+}
+
+.mdc-button { 
+    background-color: black;
+    
+}

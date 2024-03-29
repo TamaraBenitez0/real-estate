@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Producto } from './interface/producto.interface';
+import { ProductosService } from './productos.service';
 
 @Component({
   selector: 'app-productos',
@@ -11,12 +12,24 @@ export class ProductosComponent implements OnInit {
 
   title: string = 'Seccion Productos';
 
+  private productService = inject(ProductosService)
   productos: Producto[] = [];
+
+  
 
   ngOnInit(): void {
     console.log('Seteando array en onInit');
 
-    this.productos = [
+    this.productService.getProducts().subscribe({
+      next:res => {
+        this.productos = res
+        console.log(res)
+      },
+      error: err =>{
+          console.log(err)
+      }
+    })
+    /* this.productos = [
       {
         codigo: 'ABC123',
         nombre: 'Jabon',
@@ -36,7 +49,7 @@ export class ProductosComponent implements OnInit {
         stock: 20
       }
 
-    ]
+    ] */
   }
 
   sinStock(): string {

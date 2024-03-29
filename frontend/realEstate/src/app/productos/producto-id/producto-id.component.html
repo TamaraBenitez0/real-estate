@@ -1,1 +1,29 @@
-<p>producto-id works!</p>
+<mat-card>
+    <mat-card-content><div>
+        <h3>{{producto.codigo}}</h3>
+        <h4>{{producto.nombre}}</h4>
+        @if (producto.precio)
+        {
+        <h5>${{producto.precio}}</h5>
+        }@else {
+        <h5 [ngClass]="{sinPrecio: producto.precio }">No dispone de precio</h5>
+        }
+        <p *ngIf="producto.urlImagen; else sinStock">{{producto.urlImagen}}</p>
+        @if(producto.descripcion){
+          <h5>{{producto.descripcion}}</h5>
+        }@else {
+          <h5 [ngClass]="{sinDescripcion: producto.descripcion }">No dispone de descripcion</h5>
+        }
+        <h5>{{mapEstadoProducto[producto.estadoProducto]}}</h5>
+      
+        <ng-template #sinStock>
+        
+          <p [ngStyle]="{color: tieneStock()}">Sin Imagen</p>
+        </ng-template>
+       
+      <!--  <button mat-stroked-button>Actualizar producto</button>
+        <button [disabled]="!sePuedeEliminar()" [matTooltipDisabled]="sePuedeEliminar()" disabledInteractive
+        matTooltip="El estado de producto es vendido o reservado.
+        ¡No se puede eliminar este producto!" mat-stroked-button >Eliminar producto</button> -->
+      </div></mat-card-content>
+  </mat-card>

@@ -18,6 +18,6 @@ import { TabsReservasComponent } from './tabs-reservas/tabs-reservas.component';
     RouterModule.forChild(routes)
     
   ],
-  exports:[UserVendedorComponent]
+  exports:[UserVendedorComponent,HomePageComponent, TabsProductosComponent, TabsReservasComponent]
 })
 export class UserVendedorModule { }

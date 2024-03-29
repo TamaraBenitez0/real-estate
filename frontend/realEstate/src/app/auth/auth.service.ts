@@ -66,4 +66,12 @@ export class AuthService {
 
     this.setAuthentication(token)
   }
+
+  logout() {
+    localStorage.removeItem('accessToken');
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('accessToken');
+  }
 }
