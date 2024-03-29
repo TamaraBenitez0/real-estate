@@ -1,20 +1,20 @@
 <mat-card>
     <mat-card-content><div>
-        <h3>{{producto.codigo}}</h3>
-        <h4>{{producto.nombre}}</h4>
-        @if (producto.precio)
+        <h3>{{producto?.codigo}}</h3>
+        <h4>{{producto?.nombre}}</h4>
+        @if (producto?.precio)
         {
-        <h5>${{producto.precio}}</h5>
+        <h5>${{producto?.precio}}</h5>
         }@else {
-        <h5 [ngClass]="{sinPrecio: producto.precio }">No dispone de precio</h5>
+        <h5 [ngClass]="{sinPrecio: producto?.precio }">No dispone de precio</h5>
         }
-        <p *ngIf="producto.urlImagen; else sinStock">{{producto.urlImagen}}</p>
-        @if(producto.descripcion){
-          <h5>{{producto.descripcion}}</h5>
+        <p *ngIf="producto?.urlImagen; else sinStock">{{producto?.urlImagen}}</p>
+        @if(producto?.descripcion){
+          <h5>{{producto?.descripcion}}</h5>
         }@else {
-          <h5 [ngClass]="{sinDescripcion: producto.descripcion }">No dispone de descripcion</h5>
+          <h5 [ngClass]="{sinDescripcion: producto?.descripcion }">No dispone de descripcion</h5>
         }
-        <h5>{{mapEstadoProducto[producto.estadoProducto]}}</h5>
+        <h5>{{mapEstadoProducto[producto.estadoProducto ?? 0]}}</h5>
       
         <ng-template #sinStock>
         
@@ -22,8 +22,16 @@
         </ng-template>
        
      <button mat-stroked-button>Actualizar producto</button>
-        <button  [disabled]="!sePuedeEliminar()" [matTooltipDisabled]="sePuedeEliminar()" disabledInteractive
+
+      @if(sePuedeEliminar()){
+        <button mat-stroked-button (click)="eliminarProducto(producto.codigo)" >Eliminar producto</button>
+      }
+      @else {
+        <button mat-button disabled [matTooltipDisabled]="sePuedeEliminar()" disabledInteractive
         matTooltip="El estado de producto es vendido o reservado.
-        ¡No se puede eliminar este producto!" mat-stroked-button >Eliminar producto</button> 
+        ¡No se puede eliminar este producto!">Eliminar producto</button>
+      }
+
+     
       </div></mat-card-content>
   </mat-card>

@@ -38,6 +38,7 @@ export class ProductosService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.getToken()}`
     });
+    console.log("delete product")
     return this.http.delete<any>(`${this.url}/Producto/${codigo}`,{headers})
   }
 

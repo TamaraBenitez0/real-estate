@@ -35,12 +35,13 @@ export class ProductoIdComponent implements OnInit {
     this.productService.deleteProduct(codigo).subscribe({
       next:res => {
         console.log(res)
+        this.router.navigateByUrl('/productos')
       },
       error: err => {
         console.log(err)
       }
     })
-    this.router.navigateByUrl('/productos')
+    
 
   }
 
@@ -49,18 +50,18 @@ export class ProductoIdComponent implements OnInit {
       .subscribe(params => {
         this.productoCodigo = params.get('id')!
         
-
+        this.productService.getProducto(this.productoCodigo).subscribe({
+          next:res =>{
+            this.producto = res
+           
+          },
+          error: err => {
+            console.log(err)
+          }
+        })
       })
 
-      this.productService.getProducto(this.productoCodigo).subscribe({
-        next:res =>{
-          this.producto = res
-         
-        },
-        error: err => {
-          console.log(err)
-        }
-      })
+      
 
 
   }

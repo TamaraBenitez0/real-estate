@@ -6,13 +6,14 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
 
 @NgModule({
   declarations: [],
-  exports:[MatFormFieldModule,MatInputModule,MatIconModule,MatButtonModule,MatCardModule,MatTooltipModule],
+  exports:[MatFormFieldModule,MatInputModule,MatIconModule,MatButtonModule,MatCardModule,MatTooltipModule,MatTabsModule],
   imports: [
     CommonModule
   ]

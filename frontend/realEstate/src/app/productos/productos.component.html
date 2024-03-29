@@ -5,7 +5,7 @@
 
   @for (item of productos; track $index)
   {
-  <app-productos-detalles [producto]="item" />
+  <app-producto-card [producto]="item" />
   }@empty {
     <p>No hay registros</p>
   }

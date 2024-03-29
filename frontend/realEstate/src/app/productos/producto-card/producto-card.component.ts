@@ -3,11 +3,11 @@ import { Producto } from '../interface/producto.interface';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-productos-detalles',
-  templateUrl: './productos-detalles.component.html',
-  styleUrl: './productos-detalles.component.css'
+  selector: 'app-producto-card',
+  templateUrl: './producto-card.component.html',
+  styleUrl: './producto-card.component.css'
 })
-export class ProductosDetallesComponent {
+export class ProductoCardComponent {
   @Input() producto!: Producto;
   private router = inject(Router);
 

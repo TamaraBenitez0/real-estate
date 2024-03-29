@@ -1,21 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductosComponent } from './productos.component';
-import { ProductosDetallesComponent } from './productos-detalles/productos-detalles.component';
+
 import { RouterModule } from '@angular/router';
 import { routes } from './productos-routing-routing.module';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ProductoIdComponent } from './producto-id/producto-id.component';
 import { MaterialModule } from '../shared/material/material.module';
+import { ProductoCardComponent } from './producto-card/producto-card.component';
 
 
 
 @NgModule({
   declarations: [
     ProductosComponent,
-    ProductosDetallesComponent,
     HomePageComponent,
-    ProductoIdComponent
+    ProductoIdComponent,
+    ProductoCardComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +24,6 @@ import { MaterialModule } from '../shared/material/material.module';
     RouterModule.forChild(routes)
     
   ],
-  exports:[ProductosComponent,ProductosDetallesComponent]
+  exports:[ProductosComponent,ProductoCardComponent]
 })
 export class ProductosModule { }
