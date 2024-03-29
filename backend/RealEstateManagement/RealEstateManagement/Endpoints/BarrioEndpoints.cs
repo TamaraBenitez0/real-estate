@@ -16,6 +16,16 @@ namespace RealEstateManagement.Endpoints
         {
             var app = routes.MapGroup("/api/Barrio");
 
+            app.MapGet("/pBarrio/{idBarrio}", (int idBarrio, AppDbContext context) =>
+            {
+                var barrio = context.Barrios.Include(p => p.Productos).FirstOrDefault(b => b.IdBarrio == idBarrio);
+                if (barrio == null)
+                {
+                    return Results.BadRequest("El barrio no existe");
+                }
+                return Results.Ok(barrio.Productos.Count);
+            }).WithTags("Barrio");
+
 
             app.MapGet("/", (IBarrioService barrioService) =>
             {

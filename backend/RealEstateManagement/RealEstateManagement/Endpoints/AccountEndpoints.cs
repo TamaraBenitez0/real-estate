@@ -18,6 +18,18 @@ namespace RealEstateManagement.Endpoints
         {
             var app = routes.MapGroup("/api/Account");
 
+            app.MapGet("/rUser/{idUsuario}", (int idUsuario,AppDbContext context) =>
+            {
+                var usuario = context.Usuarios.Include(u => u.Reservas).FirstOrDefault(u => u.IdUsuario == idUsuario);
+                if(usuario == null)
+                {
+                    return Results.BadRequest("El usuario no existe");
+                }
+                return Results.Ok(usuario.Reservas.Count);
+            }).WithTags("Account");
+           
+
+
             app.MapPost("/Register", (AppDbContext context, UsuarioRegisterDto request) =>
             {
 
@@ -61,7 +73,7 @@ namespace RealEstateManagement.Endpoints
             app.MapPost("/Login", (AppDbContext context, UsuarioDTO request) =>
             {
 
-                var user = context.Usuarios.Where(x => x.Username == request.Username).Include(x => x.Roles).First();
+                var user = context.Usuarios.Where(x => x.Username == request.Username).Include(x => x.Roles).FirstOrDefault();
 
                 if (user is null)
                 {
