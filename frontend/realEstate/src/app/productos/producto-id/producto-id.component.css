@@ -1,14 +1,17 @@
-.styleButton {
-    .mdc-button { 
-        background-color: red;
-    }
-}
 
-.mat-mdc-outlined-button:not(:disabled) {
-    border-color: yellow;
-}
 
-.mdc-button { 
+
+
+ .mdc-button { 
     background-color: black;
     
 }
+
+.mat-mdc-focus-indicator{
+    background-color: black;
+} 
+
+.mat-mdc-button-ripple{
+    background-color: black;
+}
+
