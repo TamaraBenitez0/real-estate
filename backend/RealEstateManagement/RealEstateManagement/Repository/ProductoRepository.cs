@@ -61,13 +61,16 @@ namespace RealEstateManagement.Repository
         public void RemoveProducto(Guid codigoProducto)
         {
             var producto = context.Productos.FirstOrDefault(p => p.Codigo == codigoProducto) ?? throw new Exception($"El producto con codigo {codigoProducto} no existe");
-            if(producto.EstadoProducto ! == 0)
+            if(producto.EstadoProducto != Domain.EstadoProducto.Disponible)
             {
                 throw new Exception($"El producto no puede ser borrado,solo los productos con estado disponible pueden borrarse.");
             }
-            context.Productos.Remove(producto);
+          
+                context.Productos.Remove(producto);
 
-            context.SaveChanges();
+                context.SaveChanges();
+            
+           
         }
 
         public int UpdateProducto(Guid codigoProducto,ProductoDTO productoDto)
