@@ -22,7 +22,7 @@
        
           <mat-form-field appearance="outline">
             <mat-label>Precio</mat-label>
-            <input matInput formControlName="precio" placeholder="Ingresar precio">
+            <input type="number" matInput formControlName="precio" placeholder="Ingresar precio">
           </mat-form-field>
           </div>
 
@@ -39,8 +39,9 @@
         </div>
         <div class="align-row">
          
-            <button  mat-button type="submit" class="button button-submit">Actualizar</button>
-        
+            <div [matTooltip]="isCompleteFullField() ? '' : 'Por favor , completa los campos requeridos *'">
+            <button  mat-button  [disabled]="!isCompleteFullField()"  type="submit" class="button button-submit">Actualizar </button>
+        </div>
             <a routerLink="/productos" >
               Ir a productos
             </a>

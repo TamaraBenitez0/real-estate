@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Producto } from '../interface/producto.interface';
 import { ProductosService } from '../productos.service';
@@ -23,6 +23,17 @@ export class ActualizarProductoComponent {
   producto!:Producto;
   private productService = inject(ProductosService)
 
+prueba(){
+  console.log(this.isCompleteFullField())
+}
+
+tooltipCondition(){
+  const {nombre,idBarrio,precio} = this.updateForm.value
+
+  return nombre!= '' && idBarrio!= '' && precio!= ''
+
+}
+
   ngOnInit(): void {
     this.activatedRoute.paramMap
       .subscribe(params => {
@@ -43,12 +54,14 @@ export class ActualizarProductoComponent {
       this.updateForm = this.fb.group({
         nombre: ['', [Validators.required]],
         idBarrio:['',[Validators.required]],
-        precio: ['', [Validators.required]],
+        precio: ['', [Validators.required],],
         descripcion: [''],
         urlImagen: [''],
 
       })
      }
+
+     
 
      isCompleteFullField() {
 
@@ -58,6 +71,9 @@ export class ActualizarProductoComponent {
 
      }
 
+   
+
+    
      updateProducto(){
       console.log(this.updateForm.value)
       const updateProduct = this.updateForm.value as ProductoEdit

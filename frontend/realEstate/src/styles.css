@@ -3,3 +3,7 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #313131; }
+
+.mat-tooltip-panel {
+    pointer-events: none;
+  }
