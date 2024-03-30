@@ -1,0 +1,21 @@
+.center{
+   
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
+
+.align-row{
+  display: flex;
+  flex-direction: row;
+  margin: 2.5rem;
+  gap:2rem;
+  
+
+}
+
+.titlePag{
+  padding-top: 5%;
+}

@@ -1,0 +1,55 @@
+<div class="center">
+
+    <h1 class="titlePag">Actualizar Producto</h1>
+
+    <form [formGroup]="updateForm" (ngSubmit)="updateProducto()"> 
+        <div clas="center">
+            <div class="align-row">
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" placeholder="Ingresar nombre de producto">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Barrio</mat-label>
+            <select matNativeControl formControlName="idBarrio" >
+              
+              <option value={{producto?.idBarrio}}>{{producto?.idBarrio}}</option>
+             
+           
+            </select>
+          </mat-form-field>
+       
+          <mat-form-field appearance="outline">
+            <mat-label>Precio</mat-label>
+            <input matInput formControlName="precio" placeholder="Ingresar precio">
+          </mat-form-field>
+          </div>
+
+          <div class="align-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Descripcion</mat-label>
+            <input matInput formControlName="descripcion" placeholder="Ingresar descripcion">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Url imagen</mat-label>
+            <input matInput formControlName="urlImagen" placeholder="Ingresar url imagen">
+          </mat-form-field>
+        </div>
+        <div class="align-row">
+         
+            <button  mat-button type="submit" class="button button-submit">Actualizar</button>
+        
+            <a routerLink="/productos" >
+              Ir a productos
+            </a>
+        
+          </div>
+        </div>
+    </form>
+
+</div>
+
+
+

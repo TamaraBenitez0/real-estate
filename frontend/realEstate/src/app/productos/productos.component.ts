@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Producto } from './interface/producto.interface';
 import { ProductosService } from './productos.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-productos',
@@ -13,12 +14,13 @@ export class ProductosComponent implements OnInit {
   title: string = 'Seccion Productos';
 
   private productService = inject(ProductosService)
+  private router = inject(Router)
   productos: Producto[] = [];
 
   
 
   ngOnInit(): void {
-    console.log('Seteando array en onInit');
+   
 
     this.productService.getProducts().subscribe({
       next:res => {
@@ -54,6 +56,12 @@ export class ProductosComponent implements OnInit {
 
   sinStock(): string {
     return 'green'
+  }
+
+  addProduct():void{
+   
+    this.router.navigateByUrl('productos/addProducto')
+   
   }
 
 }

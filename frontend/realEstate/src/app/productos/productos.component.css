@@ -5,3 +5,18 @@
   .sinPrecio {
     color: red;
   }
+
+.buttonAdd {
+  width: 13%;
+  background-color:rgba(255,255,255,0.87);
+  border-radius: 20%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center
+}
+
+.alignDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

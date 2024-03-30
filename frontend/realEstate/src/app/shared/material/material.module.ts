@@ -7,13 +7,15 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatSelectModule} from '@angular/material/select';
 
 
 
 
 @NgModule({
   declarations: [],
-  exports:[MatFormFieldModule,MatInputModule,MatIconModule,MatButtonModule,MatCardModule,MatTooltipModule,MatTabsModule],
+  exports:[MatFormFieldModule,MatInputModule,MatIconModule,MatButtonModule,
+    MatCardModule,MatTooltipModule,MatTabsModule,MatSelectModule],
   imports: [
     CommonModule
   ]

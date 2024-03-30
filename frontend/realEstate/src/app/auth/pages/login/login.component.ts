@@ -31,18 +31,18 @@ export class LoginComponent implements OnInit {
 
 
   login(){
-    console.log(this.myForm.value);
+   
 
     const newUsuario = this.myForm.value as UserLogin
 
     this.authService.login(newUsuario)
     .subscribe({
       next:res => {
-        console.log(res)
+        
         this.router.navigateByUrl('/')
       },
       error: error => {
-        console.log(error)
+        console.log('error en login component')
       }
     })
     

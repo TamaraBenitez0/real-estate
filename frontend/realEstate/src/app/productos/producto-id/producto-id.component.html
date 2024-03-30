@@ -1,5 +1,5 @@
 <mat-card>
-    <mat-card-content><div>
+    <mat-card-content><div class="center">
         <h3>{{producto?.codigo}}</h3>
         <h4>{{producto?.nombre}}</h4>
         @if (producto?.precio)
@@ -21,8 +21,10 @@
           <p [ngStyle]="{color: tieneStock()}">Sin Imagen</p>
         </ng-template>
        
-     <button mat-stroked-button>Actualizar producto</button>
+        <div class="align-row">
+     <button mat-stroked-button (click)="irAUpdateProducto()">Actualizar producto</button>
 
+     
       @if(sePuedeEliminar()){
         <button mat-stroked-button (click)="eliminarProducto(producto.codigo)" >Eliminar producto</button>
       }
@@ -32,6 +34,10 @@
         ¡No se puede eliminar este producto!">Eliminar producto</button>
       }
 
-     
+      <a routerLink="/productos" >
+        Ir a productos
+      </a>
+
+    </div>
       </div></mat-card-content>
   </mat-card>

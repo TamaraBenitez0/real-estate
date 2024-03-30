@@ -8,6 +8,9 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { ProductoIdComponent } from './producto-id/producto-id.component';
 import { MaterialModule } from '../shared/material/material.module';
 import { ProductoCardComponent } from './producto-card/producto-card.component';
+import { AgregarProductoComponent } from './agregar-producto/agregar-producto.component';
+import { ActualizarProductoComponent } from './actualizar-producto/actualizar-producto.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -16,11 +19,16 @@ import { ProductoCardComponent } from './producto-card/producto-card.component';
     ProductosComponent,
     HomePageComponent,
     ProductoIdComponent,
-    ProductoCardComponent
+    ProductoCardComponent,
+    AgregarProductoComponent,
+    ActualizarProductoComponent,
+    
   ],
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routes)
     
   ],

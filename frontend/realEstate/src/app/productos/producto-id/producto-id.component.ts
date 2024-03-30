@@ -31,6 +31,12 @@ export class ProductoIdComponent implements OnInit {
     return this.producto.estadoProducto == 0;
   }
 
+  irAUpdateProducto():any {
+ 
+    this.router.navigate(['productos/editProducto', this.producto.codigo])
+    
+  }
+
   eliminarProducto(codigo:string):void {
     this.productService.deleteProduct(codigo).subscribe({
       next:res => {

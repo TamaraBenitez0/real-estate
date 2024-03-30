@@ -3,6 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../environments/enviroment';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { ProductoEdit } from './interface/productoEdit.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -38,9 +39,22 @@ export class ProductosService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.getToken()}`
     });
-    console.log("delete product")
+    
     return this.http.delete<any>(`${this.url}/Producto/${codigo}`,{headers})
   }
 
+  addProduct(newProduct:ProductoEdit):Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+    return this.http.post<any>(`${this.url}/Producto`,newProduct,{headers})
+  }
+
+  updateProduct(codigo:string,updateProduct:ProductoEdit):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+    return this.http.put<any>(`${this.url}/Producto/${codigo}`,updateProduct,{headers})
+  }
 
 }

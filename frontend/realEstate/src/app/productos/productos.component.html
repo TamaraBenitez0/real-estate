@@ -1,6 +1,13 @@
 <h1 class="color-h1">{{title}}</h1>
 
 
+
+<div class="buttonAdd"> Agregar producto
+<button class ="buttonFab"  (click)="addProduct()"  mat-mini-fab color="grey" aria-label="Example icon button with a filter list icon">
+  <mat-icon>add</mat-icon>
+</button>
+
+</div>
 <ol>
 
   @for (item of productos; track $index)
