@@ -23,16 +23,11 @@
        
         <div class="align-row">
      <button mat-stroked-button (click)="irAUpdateProducto()">Actualizar producto</button>
-
+     <div [matTooltip]="sePuedeEliminar() ? '' : 'No se puede eliminar un producto en estado vendido o reservado.'">
+      <button  mat-button  [disabled]="!sePuedeEliminar()" (click)="eliminarProducto(producto.codigo)" class="button button-submit"> Eliminar producto</button>
+  </div>
      
-      @if(sePuedeEliminar()){
-        <button mat-stroked-button (click)="eliminarProducto(producto.codigo)" >Eliminar producto</button>
-      }
-      @else {
-        <button mat-button disabled [matTooltipDisabled]="sePuedeEliminar()" disabledInteractive
-        matTooltip="El estado de producto es vendido o reservado.
-        ¡No se puede eliminar este producto!">Eliminar producto</button>
-      }
+   
 
       <a routerLink="/productos" >
         Ir a productos

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, effect, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductoEdit } from '../interface/productoEdit.interface';
@@ -41,10 +41,24 @@ export class AgregarProductoComponent implements OnInit {
     this.addProductForm = this.fb.group({
       nombre: ['', [Validators.required]],
       idBarrio: ['', [Validators.required]],
-      precio: ['', [Validators.required]],
+      precio: ['', [Validators.required,Validators.minLength(1)]],
       descripcion: [''],
       urlImagen: ['']
     })
+  }
+
+  isCompleteFullField() {
+
+    const {nombre,idBarrio,precio} = this.addProductForm.value
+
+     return nombre!= '' && idBarrio!= '' && precio!= '' && this.isNumeric(precio)
+     console.log(precio)
+
+    }
+
+
+    isNumeric(value: any): boolean {
+      return !isNaN(value - parseFloat(value));
   }
 
   agregarProducto(){

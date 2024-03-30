@@ -67,10 +67,13 @@ tooltipCondition(){
 
      const {nombre,idBarrio,precio} = this.updateForm.value
 
-      return nombre!= '' && idBarrio!= '' && precio!= ''
+      return nombre!= '' && idBarrio!= '' && precio!= '' && this.isNumeric(precio)
 
      }
 
+     isNumeric(value: any): boolean {
+      return !isNaN(value - parseFloat(value));
+  }
    
 
     
