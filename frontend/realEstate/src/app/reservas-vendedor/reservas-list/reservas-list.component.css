@@ -1,0 +1,32 @@
+.color-h1 {
+    color: red;
+    
+  }
+  
+  .sinPrecio {
+    color: red;
+  }
+
+.buttonAdd {
+  width: 13%;
+  background-color:transparent;
+ 
+  display: flex;
+  justify-content: space-around;
+  align-items: center
+}
+
+.alignDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.align-row{
+  display: flex;
+  flex-direction: row;
+  margin: 2.5rem;
+  gap:2rem;
+  
+
+}

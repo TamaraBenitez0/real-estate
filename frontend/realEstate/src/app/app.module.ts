@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { UserVendedorModule } from './user-vendedor/user-vendedor.module';
+import { ReservasVendedorModule } from './reservas-vendedor/reservas-vendedor.module';
 
 
 
@@ -26,7 +27,8 @@ import { UserVendedorModule } from './user-vendedor/user-vendedor.module';
     ProductosModule,
     HttpClientModule,
     AuthModule,
-    UserVendedorModule
+    UserVendedorModule,
+    ReservasVendedorModule
   ],
   providers: [
     provideAnimationsAsync()

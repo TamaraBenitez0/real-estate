@@ -43,9 +43,11 @@ export class AuthService {
 
       if(token) {
         localStorage.setItem('accessToken',token)
+       
 
         const userResponse = jwt.jwtDecode(token) as User
-      
+     
+        localStorage.setItem('username',userResponse.name)
         
       this._authStatus.set(AuthStatus.authenticated)
 
@@ -69,6 +71,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('username')
   }
 
   getToken(): string | null {

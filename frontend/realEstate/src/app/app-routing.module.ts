@@ -18,6 +18,16 @@ const routes: Routes = [
   } , 
 
   {
+
+    path:'reservasVendedor',
+    canActivate:[authGuard],
+    data:{ roles: ['administrador', 'vendedor']},
+    loadChildren:() => import('./reservas-vendedor/reservas-vendedor.module')
+    .then(m => m.ReservasVendedorModule)
+
+  },
+
+  {
     path:'userVendedor',
     canActivate:[authGuard],
     data:{ roles: ['administrador', 'vendedor']},
