@@ -18,14 +18,21 @@ namespace RealEstateManagement.Endpoints
         {
             var app = routes.MapGroup("/api/Account");
 
-            app.MapGet("/rUser/{idUsuario}", (int idUsuario,AppDbContext context) =>
+            app.MapGet("/User/{username}/reservasIngresadas", (string username,AppDbContext context) =>
             {
-                var usuario = context.Usuarios.Include(u => u.Reservas).FirstOrDefault(u => u.IdUsuario == idUsuario);
-                if(usuario == null)
+                var idUsuario = context.Usuarios.FirstOrDefault(u => u.Username ==  username)?.IdUsuario;
+
+                if (idUsuario == null)
                 {
                     return Results.BadRequest("El usuario no existe");
                 }
-                return Results.Ok(usuario.Reservas.Count);
+                var usuario = context.Usuarios.Include(u => u.Reservas).FirstOrDefault(u => u.IdUsuario == idUsuario);
+                
+
+
+                var reservasIngresadasCount = usuario!.Reservas.Count(r => r.EstadoReserva == EstadoReserva.Ingresada);
+
+                return Results.Ok(reservasIngresadasCount);
             }).WithTags("Account");
            
 
