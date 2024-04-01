@@ -15,18 +15,6 @@ namespace RealEstateManagement.Endpoints
         {
             var app = routes.MapGroup("/api/Reserva");
 
-            app.MapDelete("/delete/${reservaId}", (AppDbContext context, int reservaId) =>
-            {
-                var reserva = context.Reservas.FirstOrDefault(r => r.IdReserva == reservaId);
-                if (reserva == null)
-                {
-                   return Results.BadRequest("No existe esta reserva");
-                }
-                context.Reservas.Remove(reserva);
-                context.SaveChanges();
-                return Results.Ok();
-
-            });
 
             app.MapGet("/getReservas", (IReservaService reservaService) =>
             {
