@@ -1,6 +1,21 @@
 .login-title {
     text-align: center;
+    color: rgba(255,255,255,0.87);
+    padding-top: 1%;
   }
+
+
+  .img-logo{
+    box-shadow:
+    inset 0 -3em 3em rgba(0, 0, 0, 0.1),
+    0 0 0 2px #313131,
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+  }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent!important;
+  }
+  
   
   .login-form {
     max-width: 400px;

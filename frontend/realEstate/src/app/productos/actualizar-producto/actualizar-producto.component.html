@@ -42,9 +42,7 @@
             <div [matTooltip]="isCompleteFullField() ? '' : 'Por favor , completa los campos requeridos *'">
             <button  mat-button  [disabled]="!isCompleteFullField()"  type="submit" class="button button-submit">Actualizar </button>
         </div>
-            <a routerLink="/productos" >
-              Ir a productos
-            </a>
+        <button mat-stroked-button type="button" routerLink="/productos" class="button button-go-to-register"> Ir a productos</button>
         
           </div>
         </div>

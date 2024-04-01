@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { UserRegister } from '../../interface/user-register.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,6 +13,7 @@ export class RegisterComponent {
 
 
   private authService = inject(AuthService)
+  private router = inject(Router)
   registerForm!: FormGroup
   usuarioCreado!: UserRegister;
 
@@ -23,6 +25,15 @@ export class RegisterComponent {
       role: ['', Validators.required]
     })
   }
+
+  isCompleteFullField() {
+
+    const {username,password,role} = this.registerForm.value
+
+     return username!= '' && password!= '' && role!=''
+    
+
+    }
 
   register(){
     
@@ -39,9 +50,11 @@ export class RegisterComponent {
       next: userCreado => {
         this.usuarioCreado = userCreado;
         this.registerForm.reset()
+        this.router.navigateByUrl('auth/login');
       },
       error: err => {
         console.log(err)
+       
       }
     })
 

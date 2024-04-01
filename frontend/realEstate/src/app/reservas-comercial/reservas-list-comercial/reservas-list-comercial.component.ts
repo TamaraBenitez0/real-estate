@@ -10,7 +10,7 @@ import { Reserva } from '../interface/reserva.interface';
 })
 export class ReservasListComercialComponent {
 
-  title:string = 'Reservas Section'
+  title:string = 'Reservas'
   private reservaService = inject(ReservasComercialService)
   private router = inject(Router)
   reservas:Reserva[] = []

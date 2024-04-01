@@ -27,6 +27,16 @@ export class LoginComponent implements OnInit {
     })
   }
 
+
+  
+  isCompleteFullField() {
+
+    const {username,password} = this.myForm.value
+
+     return username!= '' && password!= ''
+    
+
+    }
   
 
 

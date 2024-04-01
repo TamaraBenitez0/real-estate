@@ -1,5 +1,6 @@
 <div class="center">
-  <img src="./assets/icono.png">
+  <div class="img-logo">
+  <img src="./assets/iconoRL.png"></div>
 <h2 class="loginTitle">Login</h2>
 
 <form [formGroup]="myForm" (ngSubmit)="login()"> 
@@ -16,7 +17,10 @@
   
     
     <div class="button-container">
-    <button mat-stroked-button  type="submit">Iniciar sesion</button>
+      <div [matTooltip]="isCompleteFullField() ? '' : 'Por favor , completa los campos requeridos *'">
+        <button mat-stroked-button [disabled]="!isCompleteFullField()" type="submit">Iniciar sesion</button>
+    </div>
+    
     <button mat-stroked-button type="button" routerLink="/auth/register" class="button button-go-to-register">Ir a Registro</button>
     </div>
   </div>

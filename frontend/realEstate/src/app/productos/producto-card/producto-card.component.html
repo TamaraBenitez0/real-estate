@@ -1,25 +1,34 @@
-<div>
-    <h3>{{producto.codigo}}</h3>
-    <h4>{{producto.nombre}}</h4>
-    @if (producto.precio)
-    {
-    <h5>${{producto.precio}}</h5>
-    }@else {
-    <h5 [ngClass]="{sinPrecio: producto.precio }">No dispone de precio</h5>
-    }
-    <p *ngIf="producto.urlImagen; else sinStock">{{producto.urlImagen}}</p>
-    @if(producto.descripcion){
-      <h5>{{producto.descripcion}}</h5>
-    }@else {
-      <h5 [ngClass]="{sinDescripcion: producto.descripcion }">No dispone de descripcion</h5>
-    }
-    <h5>{{mapEstadoProducto[producto.estadoProducto]}}</h5>
-  
-    <ng-template #sinStock>
-    
-      <p [ngStyle]="{color: tieneStock()}">Sin Imagen</p>
-    </ng-template>
-    <button mat-button (click)="irADetalle()">Gestionar Producto</button> 
-    <hr>
-  
-  </div>
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title> <h3 class="styleH3">{{producto?.nombre}}</h3></mat-card-title>
+      <mat-card-subtitle> <h3 class="styleH3">{{producto?.codigo}}</h3></mat-card-subtitle>
+    </mat-card-header>
+      <mat-card-content><div class="center">
+       
+     
+        @if(producto?.urlImagen){
+          <img width="20%" height="20%"  mat-card-image src={{producto?.urlImagen}} alt="Photo of a product">
+        }
+        @else {
+          <h3 class="styleH3">No hay imagen disponible.</h3>
+        }
+        
+         
+         
+          <h3 class="styleH3">$ {{producto?.precio}}</h3>
+          
+         
+          @if(producto?.descripcion){
+            <h3 class="styleH3">{{producto?.descripcion}}</h3>
+          }@else {
+            <h3 class="styleH3">No dispone de descripcion</h3>
+          }
+          <h3 class="styleH3">{{mapEstadoProducto[producto.estadoProducto ?? 0]}}</h3>
+        
+         
+          <button mat-stroked-button (click)="irADetalle()">Gestionar Producto</button> 
+        </div></mat-card-content>
+    </mat-card>
+
+ 
