@@ -2,8 +2,11 @@
 @import '@angular/material/prebuilt-themes/purple-green.css';
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #313131; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
 
 .mat-tooltip-panel {
     pointer-events: none;
   }
+
+  
