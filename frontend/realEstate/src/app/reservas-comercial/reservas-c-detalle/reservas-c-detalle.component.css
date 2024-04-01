@@ -1,0 +1,13 @@
+.alignDiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .align-row{
+    display: flex;
+    flex-direction: row;
+    gap:2rem;
+    
+  
+  }

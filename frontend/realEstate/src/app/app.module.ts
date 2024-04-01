@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { UserVendedorModule } from './user-vendedor/user-vendedor.module';
 import { ReservasVendedorModule } from './reservas-vendedor/reservas-vendedor.module';
+import { ReservasComercialModule } from './reservas-comercial/reservas-comercial.module';
+;
 
 
 
@@ -17,6 +19,7 @@ import { ReservasVendedorModule } from './reservas-vendedor/reservas-vendedor.mo
   declarations: [
     AppComponent,
     UserComercialComponent
+  
    
 
     
@@ -28,7 +31,8 @@ import { ReservasVendedorModule } from './reservas-vendedor/reservas-vendedor.mo
     HttpClientModule,
     AuthModule,
     UserVendedorModule,
-    ReservasVendedorModule
+    ReservasVendedorModule,
+    ReservasComercialModule
   ],
   providers: [
     provideAnimationsAsync()

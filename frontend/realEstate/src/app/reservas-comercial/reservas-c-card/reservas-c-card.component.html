@@ -1,0 +1,17 @@
+<div>
+    <h3>{{reserva.idReserva}}</h3>
+    <h4>{{reserva.nombreCliente}}</h4>
+    <h5>{{mapEstadoReserva[reserva.estadoReserva]}}</h5>
+    <h3>{{reserva.codigoProducto}}</h3>
+    <h3>{{reserva.username}}</h3>
+
+  
+    @if(reserva.estadoReserva == 0){
+        <button mat-button (click)="irADetalle()">Gestionar reserva</button>
+      }@else {
+        <h5>No esta disponible gestionar esta reserva.</h5>
+      }
+     
+    <hr>
+  
+  </div>

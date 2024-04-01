@@ -12,7 +12,7 @@ export const redireccionGuard: CanActivateFn = (route, state) => {
   const currentRol = authService.currentUser()?.role;
 
   if (currentRol === 'comercial') {
-    router.navigateByUrl('userComercial')
+    router.navigateByUrl('reservasComercial')
     return true;
   } else if (currentRol === 'administrador') {
     router.navigateByUrl('productos')

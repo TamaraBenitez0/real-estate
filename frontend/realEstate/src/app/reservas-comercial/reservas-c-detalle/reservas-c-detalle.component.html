@@ -1,0 +1,26 @@
+<mat-card>
+    <mat-card-content><div class="center">
+        <h3>{{reserva?.idReserva}}</h3>
+        <h4>{{reserva?.nombreCliente}}</h4>
+        <h5>{{mapEstadoReserva[reserva.estadoReserva ?? 0]}}</h5>
+        <h3>{{reserva?.codigoProducto}}</h3>
+        <h3>{{reserva?.username}}</h3>
+      
+       
+        <div class="align-row">
+           
+                <button mat-stroked-button (click)="aprobarReserva(reserva.idReserva)">Aprobar reserva</button>
+               
+                 <button  mat-button (click)="rechazarReserva(reserva.idReserva)" class="button button-submit"> Rechazar reserva</button>
+            
+    
+     
+   
+
+      <a routerLink="/reservasComercial" >
+        Ir a reservas
+      </a>
+
+    </div>
+      </div></mat-card-content>
+  </mat-card>

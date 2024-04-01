@@ -25,6 +25,14 @@ const routes: Routes = [
     loadChildren:() => import('./reservas-vendedor/reservas-vendedor.module')
     .then(m => m.ReservasVendedorModule)
 
+  }, 
+  {
+    path:'reservasComercial',
+    canActivate:[authGuard],
+    data:{ roles: ['administrador', 'comercial']},
+    loadChildren: () => import('./reservas-comercial/reservas-comercial.module')
+    .then(m => m.ReservasComercialModule)
+
   },
 
   {
