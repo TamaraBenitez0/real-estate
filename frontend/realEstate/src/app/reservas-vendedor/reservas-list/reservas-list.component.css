@@ -1,22 +1,26 @@
 .color-h1 {
-    color: red;
+    color: rgba(255,255,255,0.87);
+    padding-top: 2%;
+    padding-left: 1.5%;
     
   }
   
-  .sinPrecio {
-    color: red;
-  }
+
 
 .buttonAdd {
 
   background-color:transparent;
   display: flex;
   justify-content: space-around;
-  align-items: center
+  align-items: center;
+  margin-right: 1.5%;
+ 
 }
 
 .mat-mdc-mini-fab:not(.mdc-fab--extended) { 
   width: 100%;
+  background-color: transparent;
+  color: rgba(255,255,255,0.87);
 }
 .alignDiv {
   display: flex;

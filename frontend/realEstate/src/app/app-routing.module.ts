@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { UserComercialComponent } from './user-comercial/user-comercial.component';
 import { authGuard } from './auth/guard/auth.guard';
 import { redireccionGuard } from './auth/guard/redireccion.guard';
 import { ProductosComponent } from './productos/productos.component';
@@ -42,14 +41,7 @@ const routes: Routes = [
     loadChildren:() => import('./user-vendedor/user-vendedor.module')
     .then(m => m.UserVendedorModule)
   },
-  {
-    path:'userComercial',
-    canActivate:[authGuard],
-    data:{ roles: ['comercial','administrador']},
-    component: UserComercialComponent
-  },
-  
-  
+
   {
     path:'auth',
     canActivate: [isNotAuthenticatedGuard],

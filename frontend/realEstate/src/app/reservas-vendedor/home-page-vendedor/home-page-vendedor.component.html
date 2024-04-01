@@ -1,7 +1,12 @@
-<h3 class="color-h1">Reservas V</h3>
+<div class ="toolbar">
+    
+    <div class="align-row">  <mat-icon  class="color-h1">perm_identity</mat-icon><h3 class="color-h1">{{username??''}}</h3></div>
+   
 
+    <img clas ="imageLogo"src="./assets/icono.png" width="20%">
 
-<br>
-<hr>
+    <button class="styleButton" mat-button *ngIf="isAuthenticated" (click)="logout()">DESLOGUEAR</button>
+
+</div>
 <!-- Agregamos tambien el router para trabajar con este layout -->
 <router-outlet/>
