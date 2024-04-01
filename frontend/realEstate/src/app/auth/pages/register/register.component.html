@@ -1,0 +1,50 @@
+
+<div class="center">
+  <div class="img-logo">
+    <img src="./assets/iconoRL.png"></div>
+
+<h2 class="login-title">Registro</h2>
+
+<form [formGroup]="registerForm"
+(ngSubmit)="register()"
+class="login-form"> 
+
+
+
+  <mat-form-field appearance="outline">
+    <mat-label>Usuario</mat-label>
+    <input matInput formControlName="username" placeholder="Ingresar nombre de usuario">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" placeholder="Ingresar contraseña" type="password">
+  </mat-form-field>
+  
+
+  <mat-form-field class="select">
+    <mat-label>Rol</mat-label>
+    <select matNativeControl formControlName="role" >
+      
+      <option value="vendedor">Vendedor</option>
+      <option value="comercial">Comerciante</option>
+   
+    </select>
+  </mat-form-field>
+
+
+
+
+  <hr />
+
+  <div class="button-container">
+    <div [matTooltip]="isCompleteFullField() ? '' : 'Por favor , completa los campos requeridos *'">
+      <button mat-stroked-button [disabled]="!isCompleteFullField()" type="submit">Registrarse</button>
+  </div>
+  
+
+  <button mat-stroked-button type="button" routerLink="/auth/login" class="button button-go-to-register">Ir a inicio de sesion</button>
+  </div>
+</form> 
+</div>
+<br>
+<hr>

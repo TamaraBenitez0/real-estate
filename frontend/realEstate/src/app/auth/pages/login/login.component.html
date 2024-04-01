@@ -1,0 +1,32 @@
+<div class="center">
+  <div class="img-logo">
+  <img src="./assets/iconoRL.png"></div>
+<h2 class="loginTitle">Login</h2>
+
+<form [formGroup]="myForm" (ngSubmit)="login()"> 
+
+  <div class="center">
+  <mat-form-field appearance="outline">
+    <mat-label>Username</mat-label>
+    <input matInput formControlName="username" placeholder="Ingresar nombre de usuario">
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" placeholder="Ingresar contraseña" type="password">
+  </mat-form-field>
+  
+    
+    <div class="button-container">
+      <div [matTooltip]="isCompleteFullField() ? '' : 'Por favor , completa los campos requeridos *'">
+        <button mat-stroked-button [disabled]="!isCompleteFullField()" type="submit">Iniciar sesion</button>
+    </div>
+    
+    <button mat-stroked-button type="button" routerLink="/auth/register" class="button button-go-to-register">Ir a Registro</button>
+    </div>
+  </div>
+  </form> 
+  
+
+</div>
+
+

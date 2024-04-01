@@ -1,0 +1,26 @@
+<div class="alignDiv">
+<h1 class="color-h1">{{title}}</h1>
+
+
+
+<div class="buttonAdd"> 
+      
+
+  
+<button class ="buttonFab"    (click)="addProduct()"  mat-mini-fab color="grey" aria-label="Example icon button with a filter list icon">
+  Agregar producto<mat-icon>add</mat-icon>
+</button>
+
+
+
+</div>
+</div>
+<ol>
+
+  @for (item of productos; track $index)
+  {
+  <app-producto-card [producto]="item" />
+  }@empty {
+    <p>No hay registros</p>
+  }
+</ol>

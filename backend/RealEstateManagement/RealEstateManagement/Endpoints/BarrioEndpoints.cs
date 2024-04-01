@@ -17,12 +17,13 @@ namespace RealEstateManagement.Endpoints
             var app = routes.MapGroup("/api/Barrio");
 
 
+
             app.MapGet("/", (IBarrioService barrioService) =>
             {
                 var barrios = barrioService.GetBarrios();
 
                 return Results.Ok(barrios);
-            }).WithTags("Barrio").RequireAuthorization(new AuthorizeAttribute { Roles = "comercial, administrador" });
+            }).WithTags("Barrio").RequireAuthorization(new AuthorizeAttribute { Roles = "comercial, administrador,vendedor" });
 
             app.MapGet("/{idBarrio}", (int idBarrio, IBarrioService barrioService) =>
             {

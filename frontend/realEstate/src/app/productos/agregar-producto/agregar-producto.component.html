@@ -1,0 +1,47 @@
+<div class="center">
+
+    <h1 class="titlePag">Agregar Producto</h1>
+
+    <form [formGroup]="addProductForm" (ngSubmit)="agregarProducto()"> 
+        <div class="center">
+            <div class="align-row">
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="nombre" placeholder="Ingresar nombre de producto">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Barrio</mat-label>
+            <select matNativeControl formControlName="idBarrio" >
+              @for(barrio of  barrios;track $index){
+                <option value={{barrio.idBarrio}}>{{barrio.nombre}}</option>
+              }
+                       
+            </select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Precio</mat-label>
+            <input matInput type="number" formControlName="precio" placeholder="Ingresar precio">
+          </mat-form-field> </div>
+
+          <div class="align-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Descripcion</mat-label>
+            <input matInput formControlName="descripcion" placeholder="Ingresar descripcion">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Url imagen</mat-label>
+            <input matInput formControlName="urlImagen" placeholder="Ingresar url imagen">
+          </mat-form-field>
+          </div>
+
+          <div class="align-row">
+            <div [matTooltip]="isCompleteFullField() ? '' : 'Por favor , completa los campos requeridos *'">
+              <button  mat-button  [disabled]="!isCompleteFullField()"  type="submit" class="button button-submit">Agregar </button>
+          </div>
+          <button mat-stroked-button type="button" routerLink="/productos" class="button button-go-to-register"> Ir a productos</button>
+          </div>
+        </div>  
+    </form>
+
+</div>

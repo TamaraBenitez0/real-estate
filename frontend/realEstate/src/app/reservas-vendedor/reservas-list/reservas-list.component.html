@@ -1,0 +1,26 @@
+<div class="alignDiv">
+    <h1 class="color-h1">{{title}}</h1>
+    
+    
+    
+    <div class="buttonAdd"> 
+      
+
+      <div [matTooltip]="menosDeTresReservas() ? '' : 'No se puede añadir mas de 3 reservas activas. Cancele o espere aprobacion/rechazo de reservas ingresadas.'">
+    <button class ="buttonFab" [disabled]="!menosDeTresReservas()"   (click)="addReserva()"  mat-mini-fab  aria-label="Example icon button with a filter list icon">
+      Agregar Reserva<mat-icon>add</mat-icon>
+    </button>
+    
+   </div>
+
+    </div>
+    </div>
+    <ol>
+    
+      @for (item of reservas; track $index)
+      {
+      <app-reservas-v-card [reserva]="item" />
+      }@empty {
+        <p>No hay reservas</p>
+      }
+    </ol>

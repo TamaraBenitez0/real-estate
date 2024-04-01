@@ -1,0 +1,15 @@
+<div class="alignDiv">
+    <h1 class="color-h1">{{title}}</h1>
+    
+    
+   </div>
+
+    <ol>
+    
+      @for (item of reservas; track $index)
+      {
+      <app-reservas-c-card [reserva]="item" />
+      }@empty {
+        <p>No hay reservas</p>
+      }
+    </ol>

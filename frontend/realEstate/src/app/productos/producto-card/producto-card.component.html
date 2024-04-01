@@ -1,0 +1,34 @@
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title> <h3 class="styleH3">{{producto?.nombre}}</h3></mat-card-title>
+      <mat-card-subtitle> <h3 class="styleH3">{{producto?.codigo}}</h3></mat-card-subtitle>
+    </mat-card-header>
+      <mat-card-content><div class="center">
+       
+     
+        @if(producto?.urlImagen){
+          <img width="20%" height="20%"  mat-card-image src={{producto?.urlImagen}} alt="Photo of a product">
+        }
+        @else {
+          <h3 class="styleH3">No hay imagen disponible.</h3>
+        }
+        
+         
+         
+          <h3 class="styleH3">$ {{producto?.precio}}</h3>
+          
+         
+          @if(producto?.descripcion){
+            <h3 class="styleH3">{{producto?.descripcion}}</h3>
+          }@else {
+            <h3 class="styleH3">No dispone de descripcion</h3>
+          }
+          <h3 class="styleH3">{{mapEstadoProducto[producto.estadoProducto ?? 0]}}</h3>
+        
+         
+          <button mat-stroked-button (click)="irADetalle()">Gestionar Producto</button> 
+        </div></mat-card-content>
+    </mat-card>
+
+ 

@@ -15,6 +15,7 @@ namespace RealEstateManagement.Endpoints
         {
             var app = routes.MapGroup("/api/Reserva");
 
+
             app.MapGet("/getReservas", (IReservaService reservaService) =>
             {
                 var reservas = reservaService.GetReservas(); 
@@ -33,6 +34,7 @@ namespace RealEstateManagement.Endpoints
 
             }).WithTags("Reserva").RequireAuthorization(new AuthorizeAttribute { Roles = "vendedor, administrador, comercial" });
 
+            
 
 
             app.MapPost("/createReserva", (IReservaService reservaService, [FromBody] ReservaRequestDTO reservaDTO) => {

@@ -18,6 +18,10 @@ namespace RealEstateManagement.Endpoints
         {
             var app = routes.MapGroup("/api/Account");
 
+           
+           
+
+
             app.MapPost("/Register", (AppDbContext context, UsuarioRegisterDto request) =>
             {
 
@@ -57,11 +61,13 @@ namespace RealEstateManagement.Endpoints
                 .WithTags("Account")
                 .AllowAnonymous();
 
+       
+
 
             app.MapPost("/Login", (AppDbContext context, UsuarioDTO request) =>
             {
 
-                var user = context.Usuarios.Where(x => x.Username == request.Username).Include(x => x.Roles).First();
+                var user = context.Usuarios.Where(x => x.Username == request.Username).Include(x => x.Roles).FirstOrDefault();
 
                 if (user is null)
                 {
@@ -139,7 +145,44 @@ namespace RealEstateManagement.Endpoints
             })
                 .WithTags("Account")
                 .RequireAuthorization(new AuthorizeAttribute { Roles = "administrador" });
+
+            app.MapGet("/User/{username}/reservasIngresadas", (string username, AppDbContext context) =>
+            {
+                var idUsuario = context.Usuarios.FirstOrDefault(u => u.Username == username)?.IdUsuario;
+
+                if (idUsuario == null)
+                {
+                    return Results.BadRequest("El usuario no existe");
+                }
+                var usuario = context.Usuarios.Include(u => u.Reservas).FirstOrDefault(u => u.IdUsuario == idUsuario);
+
+
+
+                var reservasIngresadasCount = usuario!.Reservas.Count(r => r.EstadoReserva == EstadoReserva.Ingresada);
+
+                return Results.Ok(reservasIngresadasCount);
+            }).WithTags("Account").AllowAnonymous(); 
+
+
+            app.MapGet("/Users/Approved/Reservations", (AppDbContext context) =>
+            {
+                var vendedoresConReservasAprobadas = context.Usuarios
+              .Include(u => u.Roles)
+              .Include(u => u.Reservas)
+              .Where(u => u.Roles.Any(r => r.Name == "vendedor"))
+              .Select(u => new
+              {
+                  Username = u.Username,
+                  NumeroReservasAprobadas = u.Reservas.Count(r => r.EstadoReserva == EstadoReserva.Aprobada)
+              })
+              .ToList();
+                return Results.Ok(vendedoresConReservasAprobadas);
+
+            }).WithTags("Account").RequireAuthorization(new AuthorizeAttribute { Roles = "administrador, comercial" });
+
         }
+
+
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
