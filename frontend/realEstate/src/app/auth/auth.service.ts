@@ -39,6 +39,10 @@ export class AuthService {
     )
   }
 
+  usersReservations():Observable<any> {
+    return this.http.get<any>(`${this.url}/Account/Users/Approved/Reservations`)
+  }
+
   setAuthentication(token:string | null){
 
       if(token) {

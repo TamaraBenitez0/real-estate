@@ -23,9 +23,7 @@ export class ActualizarProductoComponent {
   producto!:Producto;
   private productService = inject(ProductosService)
 
-prueba(){
-  console.log(this.isCompleteFullField())
-}
+
 
 tooltipCondition(){
   const {nombre,idBarrio,precio} = this.updateForm.value

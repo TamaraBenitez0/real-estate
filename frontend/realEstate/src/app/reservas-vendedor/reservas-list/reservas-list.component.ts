@@ -10,7 +10,7 @@ import { Reserva } from '../interface/reserva.interface';
 })
 export class ReservasListComponent implements OnInit {
 
-  title: string = 'Seccion Reservas';
+  title: string = 'Reservas';
 
   private reservaService = inject(ReservasVendedorService)
   private router = inject(Router)

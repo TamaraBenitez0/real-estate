@@ -4,6 +4,7 @@ import { authGuard } from './auth/guard/auth.guard';
 import { redireccionGuard } from './auth/guard/redireccion.guard';
 import { ProductosComponent } from './productos/productos.component';
 import { isNotAuthenticatedGuard } from './auth/guard/is-not-authenthicated.guard';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 const routes: Routes = [
 
@@ -15,6 +16,16 @@ const routes: Routes = [
       .then(m => m.ProductosModule)
   
   } , 
+
+
+
+  {
+    path:'graphicUsers',
+    canActivate:[authGuard],
+    data:{ roles: ['administrador', 'comercial']},
+    loadChildren:() => import('./graphic-user-comercial/graphic-user-comercial.module')
+    .then(m =>m.GraphicUserComercialModule)
+  },
 
   {
 
