@@ -48,4 +48,13 @@ export class ReservasVendedorService {
     return this.http.post<any>(`${this.url}/Reserva/createReserva`,newReserva,{headers})
   }
 
+  reservasIngresadasUser(username:string):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    });
+
+    return this.http.get<any>(`${this.url}/Account/User/${username}/reservasIngresadas`)
+
+  }
+
 }

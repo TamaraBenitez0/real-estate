@@ -8,14 +8,16 @@
   }
 
 .buttonAdd {
-  width: 13%;
+
   background-color:transparent;
- 
   display: flex;
   justify-content: space-around;
   align-items: center
 }
 
+.mat-mdc-mini-fab:not(.mdc-fab--extended) { 
+  width: 100%;
+}
 .alignDiv {
   display: flex;
   justify-content: space-between;

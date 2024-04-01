@@ -3,11 +3,16 @@
     
     
     
-    <div class="buttonAdd"> Agregar Reserva
-    <button class ="buttonFab"  (click)="addReserva()"  mat-mini-fab color="grey" aria-label="Example icon button with a filter list icon">
-      <mat-icon>add</mat-icon>
+    <div class="buttonAdd"> 
+      
+
+      <div [matTooltip]="menosDeTresReservas() ? '' : 'No se puede añadir mas de 3 reservas activas. Cancele o espere aprobacion/rechazo de reservas ingresadas.'">
+    <button class ="buttonFab" [disabled]="!menosDeTresReservas()"   (click)="addReserva()"  mat-mini-fab color="grey" aria-label="Example icon button with a filter list icon">
+      Agregar Reserva<mat-icon>add</mat-icon>
     </button>
     
+   </div>
+
     </div>
     </div>
     <ol>

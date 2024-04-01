@@ -27,7 +27,7 @@ export class ReservaVAddComponent implements OnInit {
   productos: Producto[] = [];
   barrios:Barrio[] = [];
   addReservaForm!: FormGroup
-
+  productosFiltrados:Producto[] = []
 
 
   ngOnInit(): void {
@@ -52,7 +52,8 @@ export class ReservaVAddComponent implements OnInit {
     this.productService.getProducts().subscribe({
       next:(res:Producto[]) => {
         this.productos = res
-        console.log(res)
+        this.productosFiltrados = this.productos.filter(p => p.estadoProducto == 0)
+      
       },
       error: err =>{
           console.log(err)
@@ -62,9 +63,7 @@ export class ReservaVAddComponent implements OnInit {
    
   }
 
-  filterProductoState(myProducts:Producto[]) {
-     return myProducts.filter(p => p.estadoProducto == 0)
-  }
+  
 
   isCompleteFullField() {
 

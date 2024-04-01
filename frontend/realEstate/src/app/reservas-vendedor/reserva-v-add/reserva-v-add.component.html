@@ -1,1 +1,71 @@
-<p>reserva-v-add works!</p>
+<div class="center">
+
+    <h1 class="titlePag">Agregar Reserva</h1>
+
+    @if(productosFiltrados.length >0) {
+  
+        <form [formGroup]="addReservaForm" (ngSubmit)="agregarReserva()"> 
+            <div class="center">
+                <div class="align-row">
+            <mat-form-field appearance="outline">
+                <mat-label>Nombre de cliente</mat-label>
+                <input matInput formControlName="nombreCliente" placeholder="Ingresar nombre de producto">
+              </mat-form-field>
+    
+              <mat-form-field>
+                <mat-label>Productos</mat-label>
+                <select matNativeControl formControlName="codigoProducto" >
+                  @for(producto of  productosFiltrados;track $index){
+                    <option value={{producto.codigo}}>{{producto.nombre}}</option>
+                  }
+                           
+                </select>
+              </mat-form-field>
+              </div>
+    
+              <div class="align-row">
+              <mat-form-field>
+                <mat-label>Barrio</mat-label>
+                <select matNativeControl formControlName="idBarrio" >
+                  @for(barrio of  barrios;track $index){
+                    <option value={{barrio.idBarrio}}>{{barrio.nombre}}</option>
+                  }
+                           
+                </select>
+              </mat-form-field>
+    
+        
+    
+              <mat-form-field>
+                <mat-label>Nombre de usuario</mat-label>
+                <select matNativeControl formControlName="username" >
+                  
+                    <option value={{usernameU}}>{{usernameU}}</option>          
+                           
+                </select>
+              </mat-form-field>
+              </div>
+             
+    
+              <div class="align-row">
+                <div [matTooltip]="isCompleteFullField() ? '' : 'Por favor , completa los campos requeridos *'">
+                  <button  mat-button  [disabled]="!isCompleteFullField()"  type="submit" class="button button-submit">Agregar </button>
+              </div>
+              <a routerLink="/reservasVendedor" >
+                Ir a reservas
+              </a>
+              </div>
+            
+            </div>
+        </form>
+    }
+    @else {
+        <h1> No hay productos disponibles para crear una reserva.</h1>
+        <a routerLink="/reservasVendedor" >
+            Ir a reservas
+          </a>
+    }
+   
+
+</div>
+

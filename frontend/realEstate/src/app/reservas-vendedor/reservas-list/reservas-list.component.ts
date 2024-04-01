@@ -15,17 +15,34 @@ export class ReservasListComponent implements OnInit {
   private reservaService = inject(ReservasVendedorService)
   private router = inject(Router)
   reservas:Reserva[] = []
+  username:string | null = localStorage.getItem('username')
+  cantReservasUser:number = 0
 
   ngOnInit(): void {
     this.reservaService.getReservas().subscribe({
       next: res => {
         this.reservas = res
-        console.log(res)
+       
       },
       error: err => {
         console.log(err)
       }
     })
+
+    this.reservaService.reservasIngresadasUser(this.username!)
+    .subscribe({
+      next: res => {
+        this.cantReservasUser = res
+        console.log(res)
+      } ,
+      error: err => {
+        console.log(err)
+      }
+    })
+  }
+
+  menosDeTresReservas() {
+    return this.cantReservasUser < 3
   }
 
  

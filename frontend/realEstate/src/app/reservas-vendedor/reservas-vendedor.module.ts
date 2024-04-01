@@ -10,6 +10,7 @@ import {routesReservasVendedor} from './reservas-vendedor-routing.module';
 import { ReservasVCardComponent } from './reservas-v-card/reservas-v-card.component';
 import { ReservaVDetalleComponent } from './reserva-v-detalle/reserva-v-detalle.component';
 import { ReservaVAddComponent } from './reserva-v-add/reserva-v-add.component'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -24,6 +25,8 @@ import { ReservaVAddComponent } from './reserva-v-add/reserva-v-add.component'
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forChild(routesReservasVendedor)
   ]
 })
