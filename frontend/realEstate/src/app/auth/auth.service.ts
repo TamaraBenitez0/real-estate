@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../environments/enviroment';
@@ -40,7 +40,10 @@ export class AuthService {
   }
 
   usersReservations():Observable<any> {
-    return this.http.get<any>(`${this.url}/Account/Users/Approved/Reservations`)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.getToken()}`
+    });
+    return this.http.get<any>(`${this.url}/Account/Users/Approved/Reservations`,{headers})
   }
 
   setAuthentication(token:string | null){

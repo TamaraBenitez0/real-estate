@@ -21,7 +21,9 @@ export class AgregarProductoComponent implements OnInit {
 
  addProductForm!: FormGroup
  barrios:Barrio[] = [];
-
+ isLoading:boolean = false
+ showError:boolean = false
+ 
 
 
   ngOnInit(): void {
@@ -62,17 +64,24 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   agregarProducto(){
-    console.log(this.addProductForm.value)
+    this.isLoading = true;
     const newProduct = this.addProductForm.value as ProductoEdit
 
       this.productoService.addProduct(newProduct)
       .subscribe({
         next:res => {
-        
+          this.isLoading = false;
+          this.showError = false
           this.router.navigateByUrl('/productos')
         },
         error: error => {
-          console.log('error al crear el producto')
+          this.showError = true;
+          this.isLoading = false
+          
+        },
+        complete: () =>{
+          this.isLoading = false;
+          this.showError = false
         }
       })
   }

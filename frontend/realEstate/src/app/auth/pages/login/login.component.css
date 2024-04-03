@@ -13,6 +13,13 @@
   
 }
 
+.showError {
+  color:rgba(255,255,255,0.87);
+  padding-top: 3%;
+}
+
+.mat-mdc-progress-spinner { --mdc-circular-progress-active-indicator-color: white; }
+
 .img-logo{
   box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
   filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));

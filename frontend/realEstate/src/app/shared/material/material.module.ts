@@ -8,14 +8,14 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
 @NgModule({
   declarations: [],
   exports:[MatFormFieldModule,MatInputModule,MatIconModule,MatButtonModule,
-    MatCardModule,MatTooltipModule,MatTabsModule,MatSelectModule],
+    MatCardModule,MatTooltipModule,MatTabsModule,MatSelectModule,MatProgressSpinnerModule],
   imports: [
     CommonModule
   ]
