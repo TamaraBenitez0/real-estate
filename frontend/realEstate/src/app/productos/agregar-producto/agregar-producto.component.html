@@ -2,6 +2,7 @@
 
     <h1 class="titlePag">Agregar Producto</h1>
 
+    @if(!isLoading){
     <form [formGroup]="addProductForm" (ngSubmit)="agregarProducto()"> 
         <div class="center">
             <div class="align-row">
@@ -43,5 +44,11 @@
           </div>
         </div>  
     </form>
-
+    <div class="showError" *ngIf="this.showError">
+      Hubo un error a la hora de crear un producto. Intentelo de nuevo.
+    </div>
+  }
+  @else {
+    <mat-spinner></mat-spinner>
+  }
 </div>

@@ -16,6 +16,9 @@ export class RegisterComponent {
   private router = inject(Router)
   registerForm!: FormGroup
   usuarioCreado!: UserRegister;
+  isLoading:boolean = false
+  showError:boolean = false
+  errorAlert:string = ''
 
   constructor(private fb: FormBuilder) {
 
@@ -36,7 +39,7 @@ export class RegisterComponent {
     }
 
   register(){
-    
+    this.isLoading = true;
     const {username,password,role} = this.registerForm.value
 
     const newUser:UserRegister = {
@@ -50,11 +53,20 @@ export class RegisterComponent {
       next: userCreado => {
         this.usuarioCreado = userCreado;
         this.registerForm.reset()
+        this.isLoading = false;
+        this.showError = false
         this.router.navigateByUrl('auth/login');
       },
       error: err => {
+        this.showError = true;
+        this.isLoading = false
+        this.errorAlert = err.error
         console.log(err)
        
+      },
+      complete: () =>{
+        this.isLoading = false;
+        this.showError = false
       }
     })
 

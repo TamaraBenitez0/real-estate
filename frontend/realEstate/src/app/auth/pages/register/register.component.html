@@ -5,6 +5,7 @@
 
 <h2 class="login-title">Registro</h2>
 
+@if(!isLoading){
 <form [formGroup]="registerForm"
 (ngSubmit)="register()"
 class="login-form"> 
@@ -21,9 +22,9 @@ class="login-form">
   </mat-form-field>
   
 
-  <mat-form-field class="select">
+  <mat-form-field class="select" >
     <mat-label>Rol</mat-label>
-    <select matNativeControl formControlName="role" >
+    <select  matNativeControl formControlName="role" >
       
       <option value="vendedor">Vendedor</option>
       <option value="comercial">Comerciante</option>
@@ -44,7 +45,14 @@ class="login-form">
 
   <button mat-stroked-button type="button" routerLink="/auth/login" class="button button-go-to-register">Ir a inicio de sesion</button>
   </div>
-</form> 
+</form>
+<div class="showError" *ngIf="this.showError">
+  Hubo un error: {{this.errorAlert}} Intentelo de nuevo.
+</div>
+}
+@else {
+  <mat-spinner></mat-spinner>
+}
 </div>
 <br>
 <hr>
